@@ -1,6 +1,6 @@
 {
-  "latest_fw": 101,
-  "version_name": "v1.0.1",
+  "latest_fw": 102,
+  "version_name": "v1.0.2",
   "release_notes": "Added improved ADC noise filtering and faster relay settling.",
   "bin_url": "https://github.com/ShadiElshazly/INSPECTO-APP/raw/main/inspecto_fw.bin"
 }
