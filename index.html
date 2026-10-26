@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INSPECTO | Pocket Dual-Channel Industrial I/O & Telemetry System</title>
+  <meta name="description" content="Inspecto by Apricity — Smartphone-powered Dual-Channel Universal Industrial I/O (170mV–60V AI, 0–22V AO, 22V DO) with 5-Stage Smartphone USB-C Isolation & Protection." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root[data-theme="dark"] {
+      --bg-primary: #070B12;
+      --bg-secondary: #0D1322;
+      --bg-card: rgba(18, 26, 45, 0.78);
+      --bg-card-solid: #121A2D;
+      --bg-glass: rgba(13, 19, 34, 0.82);
+      --text-primary: #F2F6FF;
+      --text-secondary: #94A3B8;
+      --text-muted: #64748B;
+      --accent-cyan: #00F0FF;
+      --accent-cyan-glow: rgba(0, 240, 255, 0.22);
+      --accent-emerald: #00E676;
+      --accent-emerald-glow: rgba(0, 230, 118, 0.22);
+      --accent-amber: #FFAB00;
+      --accent-danger: #FF3366;
+      --border-subtle: rgba(148, 163, 184, 0.14);
+      --border-highlight: rgba(0, 240, 255, 0.38);
+      --shadow-card: 0 20px 50px rgba(0, 0, 0, 0.55);
+      --grid-line: rgba(0, 240, 255, 0.045);
+    }
+
+    :root[data-theme="light"] {
+      --bg-primary: #F4F7FB;
+      --bg-secondary: #E9EFF8;
+      --bg-card: rgba(255, 255, 255, 0.90);
+      --bg-card-solid: #FFFFFF;
+      --bg-glass: rgba(255, 255, 255, 0.88);
+      --text-primary: #0F172A;
+      --text-secondary: #475569;
+      --text-muted: #64748B;
+      --accent-cyan: #0077CC;
+      --accent-cyan-glow: rgba(0, 119, 204, 0.15);
+      --accent-emerald: #059669;
+      --accent-emerald-glow: rgba(5, 150, 105, 0.15);
+      --accent-amber: #D97706;
+      --accent-danger: #E11D48;
+      --border-subtle: rgba(15, 23, 42, 0.10);
+      --border-highlight: rgba(0, 119, 204, 0.35);
+      --shadow-card: 0 16px 40px rgba(15, 23, 42, 0.08);
+      --grid-line: rgba(0, 119, 204, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      background-image:
+        linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* Ambient Glow Orbs */
+    .ambient-glow {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      filter: blur(150px);
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.45;
+    }
+    .glow-1 {
+      top: -200px;
+      left: -150px;
+      background: radial-gradient(circle, var(--accent-cyan-glow), transparent 70%);
+    }
+    .glow-2 {
+      bottom: -200px;
+      right: -150px;
+      background: radial-gradient(circle, var(--accent-emerald-glow), transparent 70%);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Top Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #070B12;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: 1.15rem;
+      box-shadow: 0 0 20px var(--accent-cyan-glow);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: 2px;
+      line-height: 1.1;
+    }
+
+    .brand-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--accent-cyan);
+      letter-spacing: 1px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-cyan);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .theme-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .theme-btn:hover {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 12px var(--accent-cyan-glow);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 84px 0 64px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-highlight);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--accent-cyan);
+      margin-bottom: 22px;
+      box-shadow: 0 0 24px var(--accent-cyan-glow);
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-emerald);
+      box-shadow: 0 0 10px var(--accent-emerald);
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.35); opacity: 0.55; }
+    }
+
+    .hero h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -0.5px;
+      margin-bottom: 20px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-emerald));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-lead {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin-bottom: 28px;
+    }
+
+    /* Phone Safety Highlight Banner inside Hero */
+    .safety-callout {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 20px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(0, 230, 118, 0.10), rgba(0, 240, 255, 0.06));
+      border: 1px solid rgba(0, 230, 118, 0.35);
+      margin-bottom: 32px;
+    }
+
+    .safety-callout svg {
+      flex-shrink: 0;
+      color: var(--accent-emerald);
+      margin-top: 2px;
+    }
+
+    .safety-callout-text {
+      font-size: 0.92rem;
+      color: var(--text-primary);
+    }
+
+    .safety-callout-text strong {
+      color: var(--accent-emerald);
+    }
+
+    /* Primary CTA Buttons */
+    .cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 16px 28px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 0.98rem;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-cyan), #00A8FF);
+      color: #060A12;
+      box-shadow: 0 10px 30px var(--accent-cyan-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 36px var(--accent-cyan-glow);
+    }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border-highlight);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-secondary);
+      border-color: var(--accent-cyan);
+      transform: translateY(-2px);
+    }
+
+    .btn-subtext {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 500;
+      opacity: 0.82;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .hero-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Interactive Virtual Inspecto Cockpit Card */
+    .cockpit-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-highlight);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cockpit-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+    }
+
+    .cockpit-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 1.2px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hw-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(0, 240, 255, 0.12);
+      color: var(--accent-cyan);
+      border: 1px solid var(--border-highlight);
+    }
+
+    .sim-channel {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .sim-ch-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .sim-ch-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+    }
+
+    .relay-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      padding: 3px 8px;
+      border-radius: 99px;
+      background: rgba(0, 230, 118, 0.12);
+      color: var(--accent-emerald);
+      border: 1px solid rgba(0, 230, 118, 0.3);
+    }
+
+    .mode-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .mode-tab {
+      padding: 7px 6px;
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .mode-tab.active {
+      background: var(--accent-cyan);
+      color: #070B12;
+      border-color: var(--accent-cyan);
+      font-weight: 700;
+    }
+
+    .sim-readout-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .sim-voltage {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .sim-setpoint {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+    }
+
+    .sim-slider {
+      width: 100%;
+      accent-color: var(--accent-cyan);
+      cursor: pointer;
+      margin-bottom: 6px;
+    }
+
+    canvas#scopeCanvas {
+      width: 100%;
+      height: 120px;
+      background: #050811;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      display: block;
+    }
+
+    /* Section Styling */
+    section {
+      padding: 80px 0;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 56px;
+    }
+
+    .section-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent-cyan);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .section-header h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+      margin-bottom: 14px;
+    }
+
+    .section-header p {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+    }
+
+    /* Phone & Hardware Safety Grid */
+    .safety-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .safety-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 28px;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .safety-card:hover {
+      border-color: var(--accent-emerald);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card);
+    }
+
+    .safety-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(0, 230, 118, 0.12);
+      border: 1px solid rgba(0, 230, 118, 0.35);
+      color: var(--accent-emerald);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+
+    .safety-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .safety-card p {
+      color: var(--text-secondary);
+      font-size: 0.93rem;
+    }
+
+    .safety-tag {
+      display: inline-block;
+      margin-top: 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: var(--bg-secondary);
+      color: var(--accent-cyan);
+    }
+
+    /* Architecture Diagram Banner */
+    .isolation-diagram {
+      background: var(--bg-card);
+      border: 1px solid var(--border-highlight);
+      border-radius: 20px;
+      padding: 32px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 18px;
+      align-items: center;
+      text-align: center;
+    }
+
+    .iso-stage {
+      padding: 18px;
+      border-radius: 14px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .iso-stage-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.85rem;
+      color: var(--accent-cyan);
+      margin-bottom: 6px;
+    }
+
+    .iso-stage-desc {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+    }
+
+    /* Specs & Capabilities Grid */
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .spec-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 28px;
+    }
+
+    .spec-box h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      margin-bottom: 18px;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .spec-list {
+      list-style: none;
+    }
+
+    .spec-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 0.92rem;
+    }
+
+    .spec-list li:last-child {
+      border-bottom: none;
+    }
+
+    .spec-key {
+      color: var(--text-secondary);
+    }
+
+    .spec-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      color: var(--text-primary);
+      text-align: right;
+    }
+
+    /* Download & QR Code Hub */
+    .download-hub {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 28px;
+    }
+
+    .download-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-highlight);
+      border-radius: 22px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 24px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .dl-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .dl-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      padding: 4px 10px;
+      border-radius: 99px;
+      background: rgba(0, 240, 255, 0.14);
+      color: var(--accent-cyan);
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    .download-card h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.35rem;
+      margin-bottom: 8px;
+    }
+
+    .download-card p {
+      color: var(--text-secondary);
+      font-size: 0.94rem;
+    }
+
+    .qr-frame {
+      background: #FFFFFF;
+      padding: 10px;
+      border-radius: 12px;
+      width: 112px;
+      height: 112px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .qr-frame img {
+      width: 92px;
+      height: 92px;
+      display: block;
+    }
+
+    /* Quick Start Steps */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .step-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .step-num {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--accent-cyan);
+      margin-bottom: 10px;
+    }
+
+    .step-card h4 {
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+    }
+
+    .step-card p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    /* Footer & Privacy Policy */
+    footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 48px 0;
+      background: var(--bg-secondary);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-cyan);
+    }
+
+    /* Privacy Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 8, 17, 0.82);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      padding: 20px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--bg-card-solid);
+      border: 1px solid var(--border-highlight);
+      border-radius: 20px;
+      max-width: 680px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 32px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .modal-close {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      border-radius: 8px;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 920px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <!-- Top Navigation -->
+  <header>
+    <div class="container nav-bar">
+      <a href="#" class="brand">
+        <div class="brand-icon">IN</div>
+        <div class="brand-text">
+          <span class="brand-title">INSPECTO</span>
+          <span class="brand-sub">APRICITY // HARDWARE V3.0</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#safety">Phone & Hardware Safety</a></li>
+        <li><a href="#capabilities">Capabilities</a></li>
+        <li><a href="#firmware">USB-C Firmware OTA</a></li>
+        <li><a href="#downloads">Downloads & Manual</a></li>
+        <li><a href="#quickstart">Quick Start</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="#downloads" class="btn btn-primary" style="padding: 10px 18px; font-size: 0.86rem;">
+          Download App
+        </a>
+        <button class="theme-btn" id="themeToggle" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">
+          <svg id="themeIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main>
+    <section class="hero" style="border-top: none;">
+      <div class="container hero-grid">
+        <div>
+          <div class="status-pill">
+            <span class="pulse-dot"></span>
+            <span id="liveFwBadge">INSPECTO HARDWARE V3.0 • STM32F072 ENGINE</span>
+          </div>
+
+          <h1>
+            Turn Your Smartphone Into a <span class="gradient-text">Precision Industrial I/O Lab.</span>
+          </h1>
+
+          <p class="hero-lead">
+            <strong>Inspecto</strong> (Hardware Version V3) is a pocket-sized, dual-channel universal analog and digital test instrument powered directly over USB-C. Measure up to <strong>60V DC</strong>, source precision <strong>0–22V DC</strong> analog signals, and actuate <strong>22V</strong> industrial logic in real time.
+          </p>
+
+          <!-- Smartphone Safety Callout -->
+          <div class="safety-callout">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              <path d="M9 12l2 2 4-4"></path>
+            </svg>
+            <div class="safety-callout-text">
+              <strong>100% Smartphone-Safe Isolation Architecture:</strong> Multi-stage optical solid-state relays (<code>TLP172GM</code>), self-resetting polymeric fuses (<code>PPTC</code>), and transient clamping shields ensure industrial field voltages never reach your phone's USB-C port.
+            </div>
+          </div>
+
+          <!-- Two Main Download Buttons -->
+          <div class="cta-group">
+            <a href="https://github.com/ShadiElshazly/INSPECTO-APP/releases/latest/download/Inspecto.apk" class="btn btn-primary" download>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <div>
+                Download Inspecto App
+                <span class="btn-subtext">Official Android APK • Auto-Update Ready</span>
+              </div>
+            </a>
+
+            <a href="https://github.com/ShadiElshazly/INSPECTO-APP/raw/main/inspecto_v3_user_guide.pdf" target="_blank" rel="noopener" class="btn btn-secondary">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+              </svg>
+              <div>
+                Download User Manual
+                <span class="btn-subtext">Illustrated PDF Guide & Wiring Diagrams</span>
+              </div>
+            </a>
+          </div>
+
+          <div class="hero-meta">
+            <span>✓ Dual Independent Channels</span>
+            <span>✓ Optical Relay Interlock</span>
+            <span>✓ In-App USB-C MCU Updater</span>
+          </div>
+        </div>
+
+        <!-- Interactive Live Cockpit Preview -->
+        <div class="cockpit-card">
+          <div class="cockpit-header">
+            <div class="cockpit-title">
+              <span class="pulse-dot"></span>
+              INSPECTO LIVE SIMULATOR
+            </div>
+            <span class="hw-badge">HW: V3.0 | VID: 1605</span>
+          </div>
+
+          <!-- Simulated Channel 1 -->
+          <div class="sim-channel">
+            <div class="sim-ch-top">
+              <span class="sim-ch-name">CHANNEL 01</span>
+              <span class="relay-badge" id="ch1RelayBadge">RELAY: ISOLATED (AI)</span>
+            </div>
+            <div class="mode-tabs" id="ch1Modes">
+              <button class="mode-tab active" data-mode="AI" onclick="setSimMode(1, 'AI')">AI: 0.17–60V</button>
+              <button class="mode-tab" data-mode="AO" onclick="setSimMode(1, 'AO')">AO: 0–22V</button>
+              <button class="mode-tab" data-mode="DO" onclick="setSimMode(1, 'DO')">DO: 0V / 22V</button>
+            </div>
+            <div class="sim-readout-row">
+              <span class="sim-voltage" id="ch1Readout">24.10 V</span>
+              <span class="sim-setpoint" id="ch1Sub">EXTERNAL SENSOR INPUT</span>
+            </div>
+            <input type="range" class="sim-slider" id="ch1Slider" min="0" max="60" step="0.1" value="24.1" oninput="updateSimSlider(1, this.value)" />
+          </div>
+
+          <!-- Simulated Channel 2 -->
+          <div class="sim-channel">
+            <div class="sim-ch-top">
+              <span class="sim-ch-name" style="color: var(--accent-emerald);">CHANNEL 02</span>
+              <span class="relay-badge" id="ch2RelayBadge">RELAY: ENGAGED (AO)</span>
+            </div>
+            <div class="mode-tabs" id="ch2Modes">
+              <button class="mode-tab" data-mode="AI" onclick="setSimMode(2, 'AI')">AI: 0.17–60V</button>
+              <button class="mode-tab active" data-mode="AO" onclick="setSimMode(2, 'AO')">AO: 0–22V</button>
+              <button class="mode-tab" data-mode="DO" onclick="setSimMode(2, 'DO')">DO: 0V / 22V</button>
+            </div>
+            <div class="sim-readout-row">
+              <span class="sim-voltage" id="ch2Readout">10.00 V</span>
+              <span class="sim-setpoint" id="ch2Sub">TARGET SET: 10.00 V</span>
+            </div>
+            <input type="range" class="sim-slider" id="ch2Slider" min="0" max="22" step="0.1" value="10.0" oninput="updateSimSlider(2, this.value)" />
+          </div>
+
+          <canvas id="scopeCanvas" width="460" height="120"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5-Stage Smartphone & Hardware Safety Section -->
+    <section id="safety">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-eyebrow">Engineered for Zero-Risk Field Testing</span>
+          <h2>Uncompromising Protection for Your Smartphone & Board</h2>
+          <p>
+            Connecting industrial 24V–60V PLC lines to a smartphone requires military-grade electrical protection. Inspecto V3 features a 5-stage hardware defense matrix that keeps your phone 100% isolated from field faults, miswiring, and short circuits.
+          </p>
+        </div>
+
+        <div class="safety-grid">
+          <div class="safety-card">
+            <div class="safety-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="7" width="20" height="10" rx="2"></rect>
+                <line x1="12" y1="7" x2="12" y2="17"></line>
+              </svg>
+            </div>
+            <h3>Optical Solid-State Relay Isolation</h3>
+            <p>
+              High-voltage <strong>Toshiba TLP172GM</strong> photorelays physically and optically disconnect the output amplifier whenever a channel is in Analog Input mode, using an infrared LED-to-MOSFET light barrier so external 60V signals can never back-drive the board.
+            </p>
+            <span class="safety-tag">TLP172GM • 350V Breakdown Rating</span>
+          </div>
+
+          <div class="safety-card">
+            <div class="safety-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            </div>
+            <h3>663 kΩ High-Impedance Input Shield</h3>
+            <p>
+              Each Analog Input channel passes through a precision <strong>630 kΩ + 33 kΩ</strong> attenuation network and a <strong>22 kΩ</strong> current-limiting buffer. Even at 60V DC, input current is restricted to microamps—completely impossible to surge into your phone's USB-C port.
+            </p>
+            <span class="safety-tag">&lt; 90 µA Max Input Current @ 60V</span>
+          </div>
+
+          <div class="safety-card">
+            <div class="safety-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+            </div>
+            <h3>Self-Resetting PPTC Fuses & Zener Clamps</h3>
+            <p>
+              If a technician accidentally shorts <strong>+24V</strong> or reverse-wired <strong>-24V</strong> directly into an active output terminal, the onboard <strong>PPTC polymeric fuse</strong> trips to high impedance within milliseconds while Zener clamping safely absorbs the transient. Once unplugged, it heals itself automatically.
+            </p>
+            <span class="safety-tag">Auto-Healing Overcurrent Defense</span>
+          </div>
+
+          <div class="safety-card">
+            <div class="safety-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                <line x1="12" y1="18" x2="12.01" y2="18"></line>
+              </svg>
+            </div>
+            <h3>Indefinite Short-Circuit & USB Power Guard</h3>
+            <p>
+              Dual-loop op-amp feedback with a <strong>47 Ω isolation resistor</strong> caps continuous short-circuit current at a gentle <strong>~30 mA</strong>. Your smartphone battery stays cool, USB-C current limits are never exceeded, and both relays automatically open on boot, reset, or firmware update.
+            </p>
+            <span class="safety-tag">Safe for All Android Phones & Foldables</span>
+          </div>
+        </div>
+
+        <!-- Signal Path Isolation Chain -->
+        <div class="isolation-diagram">
+          <div class="iso-stage">
+            <div class="iso-stage-title">1. FIELD TERMINAL</div>
+            <div class="iso-stage-desc">Up to 60V DC Input / 0–22V Output</div>
+          </div>
+          <div class="iso-stage">
+            <div class="iso-stage-title">2. PPTC + ZENER CLAMP</div>
+            <div class="iso-stage-desc">Blocks ±24V Miswiring & Shorts</div>
+          </div>
+          <div class="iso-stage">
+            <div class="iso-stage-title">3. TLP172GM PHOTORELAY</div>
+            <div class="iso-stage-desc">Optical Light-Barrier Isolation</div>
+          </div>
+          <div class="iso-stage">
+            <div class="iso-stage-title">4. STM32F072 MCU</div>
+            <div class="iso-stage-desc">Hardware Interlock State Machine</div>
+          </div>
+          <div class="iso-stage" style="border-color: var(--accent-emerald);">
+            <div class="iso-stage-title" style="color: var(--accent-emerald);">5. YOUR SMARTPHONE</div>
+            <div class="iso-stage-desc">100% Protected 5V USB-C Link</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hardware V3 Technical Specifications -->
+    <section id="capabilities">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-eyebrow">Inspecto Hardware V3 Architecture</span>
+          <h2>Dual-Channel Universal I/O Specifications</h2>
+          <p>
+            Both channels operate simultaneously and independently in any combination—with hardware-enforced mutual exclusion per channel so input and output stages never conflict.
+          </p>
+        </div>
+
+        <div class="specs-grid">
+          <div class="spec-box">
+            <h3>
+              <span>ANALOG INPUT (AI MODE)</span>
+              <span class="hw-badge">MODE 0</span>
+            </h3>
+            <ul class="spec-list">
+              <li><span class="spec-key">Measurement Range</span><span class="spec-val">170 mV – 60.00 V DC</span></li>
+              <li><span class="spec-key">ADC Resolution</span><span class="spec-val">12-Bit Hardware Calibrated</span></li>
+              <li><span class="spec-key">Input Impedance</span><span class="spec-val">663 kΩ (630k + 33k Divider)</span></li>
+              <li><span class="spec-key">Photorelay State</span><span class="spec-val" style="color: var(--accent-emerald);">OPEN (Physically Isolated)</span></li>
+              <li><span class="spec-key">Noise Floor Deadband</span><span class="spec-val">&lt; 100 mV Auto-Zero</span></li>
+            </ul>
+          </div>
+
+          <div class="spec-box">
+            <h3>
+              <span>ANALOG OUTPUT (AO MODE)</span>
+              <span class="hw-badge">MODE 1</span>
+            </h3>
+            <ul class="spec-list">
+              <li><span class="spec-key">Output Voltage Range</span><span class="spec-val">0.00 V – 22.00 V DC</span></li>
+              <li><span class="spec-key">DAC Resolution</span><span class="spec-val">12-Bit (4096 Steps)</span></li>
+              <li><span class="spec-key">Amplifier Stage</span><span class="spec-val">8.5× Gain w/ Post-PPTC Feedback</span></li>
+              <li><span class="spec-key">Closed-Loop Readback</span><span class="spec-val">Real-Time Terminal ADC Sense</span></li>
+              <li><span class="spec-key">Short-Circuit Limit</span><span class="spec-val">~30 mA Continuous Safe</span></li>
+            </ul>
+          </div>
+
+          <div class="spec-box">
+            <h3>
+              <span>DIGITAL OUTPUT & SYSTEM</span>
+              <span class="hw-badge">MODE 2 + MCU</span>
+            </h3>
+            <ul class="spec-list">
+              <li><span class="spec-key">Digital Logic Levels</span><span class="spec-val">LOW: 0.0V | HIGH: 22.0V</span></li>
+              <li><span class="spec-key">Microcontroller</span><span class="spec-val">STM32F072 (ARM Cortex-M0 + FreeRTOS)</span></li>
+              <li><span class="spec-key">USB Interface</span><span class="spec-val">USB-C Full-Speed CDC + ROM DFU</span></li>
+              <li><span class="spec-key">Unique Board Identity</span><span class="spec-val">Non-Volatile Option Bytes (PID)</span></li>
+              <li><span class="spec-key">Firmware Updates</span><span class="spec-val">Direct In-App USB-C Programming</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- In-App USB-C Firmware Update Feature Section -->
+    <section id="firmware">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-eyebrow">Zero-Programmer Field Upgradability</span>
+          <h2>Direct Smartphone-to-MCU Firmware Updates Over USB-C</h2>
+          <p>
+            No ST-Link or PC required. When you plug your Inspecto board into your phone, the app checks the board's live firmware version and updates the STM32 microcontroller directly over your USB-C cable.
+          </p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-num">01 // VERIFY</div>
+            <h4>Board-First Version Check</h4>
+            <p>The app reads your connected board's live firmware version and unique Option-Byte hardware ID before checking the cloud for newer releases.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">02 // ISOLATE</div>
+            <h4>Safe Software DFU Jump</h4>
+            <p>Upon confirmation, Inspecto opens both solid-state relays, zeroes its DACs, and jumps cleanly into the unbrickable STM32 System ROM USB DFU Bootloader.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">03 // FLASH</div>
+            <h4>Verified 2KB Block Programming</h4>
+            <p>The app validates the ARM Cortex-M0 vector table, flashes the binary with live 0–100% progress, performs read-back verification, and preserves your board's unique USB ID.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">04 // REBOOT</div>
+            <h4>Instant Auto-Reconnect</h4>
+            <p>In seconds, the MCU reboots into the new firmware and reconnects to your live telemetry dashboard automatically.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Downloads & QR Code Section -->
+    <section id="downloads">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-eyebrow">Official Release Portal</span>
+          <h2>Download Inspecto App & User Manual</h2>
+          <p>
+            Click the buttons below on your phone, or scan the permanent QR codes directly with your smartphone camera.
+          </p>
+        </div>
+
+        <div class="download-hub">
+          <!-- App Download Card -->
+          <div class="download-card">
+            <div class="dl-top">
+              <div>
+                <span class="dl-badge">ANDROID 7.0+ (API 24–37) • FOLDABLE READY</span>
+                <h3>Inspecto Android App</h3>
+                <p>
+                  Full dual-channel cockpit with live 60fps oscilloscope waveforms, AI/AO/DO mode switching, dark/light themes, and automatic USB-C MCU firmware updates.
+                </p>
+              </div>
+              <div class="qr-frame" title="Scan to download Inspecto.apk">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Fgithub.com%2FShadiElshazly%2FINSPECTO-APP%2Freleases%2Flatest%2Fdownload%2FInspecto.apk" alt="Inspecto APK QR Code" />
+              </div>
+            </div>
+            <a href="https://github.com/ShadiElshazly/INSPECTO-APP/releases/latest/download/Inspecto.apk" class="btn btn-primary" style="width: 100%;" download>
+              Download Inspecto App (.APK)
+            </a>
+          </div>
+
+          <!-- User Manual Download Card -->
+          <div class="download-card">
+            <div class="dl-top">
+              <div>
+                <span class="dl-badge" style="color: var(--accent-emerald); background: rgba(0, 230, 118, 0.14);">OFFICIAL DOCUMENTATION • PDF</span>
+                <h3>Inspecto V3 User Manual</h3>
+                <p>
+                  Complete illustrated quick-start guide featuring terminal pinouts, 0.17V–60V measurement wiring, 0–22V load driving diagrams, LED blink codes, and safety specs.
+                </p>
+              </div>
+              <div class="qr-frame" title="Scan to download User Manual PDF">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Fgithub.com%2FShadiElshazly%2FINSPECTO-APP%2Fraw%2Fmain%2Finspecto_v3_user_guide.pdf" alt="Inspecto Manual QR Code" />
+              </div>
+            </div>
+            <a href="https://github.com/ShadiElshazly/INSPECTO-APP/raw/main/inspecto_v3_user_guide.pdf" target="_blank" rel="noopener" class="btn btn-secondary" style="width: 100%;">
+              Download User Manual (.PDF)
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4-Step Quick Start -->
+    <section id="quickstart">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-eyebrow">Ready in 60 Seconds</span>
+          <h2>How to Get Started with Inspecto</h2>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-num">STEP 1</div>
+            <h4>Install the App</h4>
+            <p>Download and open <strong>Inspecto.apk</strong> on your Android phone, tablet, or foldable device and accept the initial permissions prompt.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">STEP 2</div>
+            <h4>Plug into USB-C</h4>
+            <p>Connect your Inspecto V3 board to your phone using any data-capable USB-C cable. The onboard LED will blink slowly (safe Analog Input mode).</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">STEP 3</div>
+            <h4>Auto-Connect</h4>
+            <p>Tap "OK" on the Android USB permission prompt. The app immediately locks onto your board's unique ID and streams live voltage telemetry.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">STEP 4</div>
+            <h4>Measure or Drive</h4>
+            <p>Select <strong>AI (0.17–60V)</strong>, <strong>AO (0–22V)</strong>, or <strong>DO (0V/22V)</strong> independently on Channel 1 and Channel 2.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <strong>INSPECTO</strong> by Apricity • Hardware Version V3.0 • Engineered on STM32F072 & FreeRTOS
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/ShadiElshazly/INSPECTO-APP" target="_blank" rel="noopener">GitHub Repository</a>
+        <a href="#downloads">Download APK</a>
+        <a href="#downloads">User Manual (PDF)</a>
+        <a onclick="openPrivacyModal()">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Play Store Compliant Privacy Policy Modal -->
+  <div class="modal-backdrop" id="privacyModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 style="font-family: 'Orbitron', sans-serif;">Inspecto Privacy Policy</h3>
+        <button class="modal-close" onclick="closePrivacyModal()">Close ✕</button>
+      </div>
+      <p style="margin-bottom: 12px; color: var(--text-secondary);">
+        <strong>Effective Date:</strong> October 2026 | <strong>Package:</strong> <code>com.apricity.inspecto</code>
+      </p>
+      <p style="margin-bottom: 12px;">
+        <strong>1. Zero Personal Data Collection:</strong> The Inspecto Android application operates strictly as a local hardware controller and telemetry dashboard for the Inspecto USB-C hardware board. We do not collect, store, transmit, or sell any personal user data, location data, contacts, or analytics.
+      </p>
+      <p style="margin-bottom: 12px;">
+        <strong>2. USB Hardware Access:</strong> The app uses the Android USB Host API (<code>android.hardware.usb.host</code>) exclusively to communicate with connected Inspecto hardware (`VID: 1605`) and the STM32 ROM DFU Bootloader (`VID: 1155`, `PID: 57105`) for user-approved firmware updates.
+      </p>
+      <p style="margin-bottom: 12px;">
+        <strong>3. Internet Access:</strong> Network access is used solely to check the official GitHub repository (`github.com/ShadiElshazly/INSPECTO-APP`) for new STM32 microcontroller firmware releases when an Inspecto board is connected.
+      </p>
+      <p style="color: var(--text-secondary); font-size: 0.88rem;">
+        For questions or technical support, visit our official repository at <code>https://github.com/ShadiElshazly/INSPECTO-APP</code>.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // 1. Theme Toggle with Persistence
+    const htmlEl = document.documentElement;
+    const savedTheme = localStorage.getItem('inspecto_web_theme') || 'dark';
+    htmlEl.setAttribute('data-theme', savedTheme);
+
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const current = htmlEl.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      htmlEl.setAttribute('data-theme', next);
+      localStorage.setItem('inspecto_web_theme', next);
+    });
+
+    // 2. Interactive Cockpit Simulator State
+    const simState = {
+      ch1: { mode: 'AI', val: 24.1 },
+      ch2: { mode: 'AO', val: 10.0 }
+    };
+
+    function setSimMode(ch, mode) {
+      const key = ch === 1 ? 'ch1' : 'ch2';
+      simState[key].mode = mode;
+
+      const container = document.getElementById(key + 'Modes');
+      container.querySelectorAll('.mode-tab').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.mode === mode);
+      });
+
+      const slider = document.getElementById(key + 'Slider');
+      const badge = document.getElementById(key + 'RelayBadge');
+      const sub = document.getElementById(key + 'Sub');
+
+      if (mode === 'AI') {
+        slider.max = 60;
+        slider.disabled = false;
+        if (simState[key].val > 60) simState[key].val = 24.1;
+        badge.textContent = 'RELAY: ISOLATED (AI)';
+        sub.textContent = 'EXTERNAL SENSOR INPUT';
+      } else if (mode === 'AO') {
+        slider.max = 22;
+        slider.disabled = false;
+        if (simState[key].val > 22) simState[key].val = 12.0;
+        badge.textContent = 'RELAY: ENGAGED (AO)';
+        sub.textContent = 'TARGET SET: ' + simState[key].val.toFixed(2) + ' V';
+      } else if (mode === 'DO') {
+        simState[key].val = simState[key].val >= 11 ? 0.0 : 22.0;
+        slider.max = 22;
+        slider.value = simState[key].val;
+        badge.textContent = 'RELAY: ENGAGED (DO)';
+        sub.textContent = simState[key].val > 0 ? 'DIGITAL HIGH (22.00 V)' : 'DIGITAL LOW (0.00 V)';
+      }
+      slider.value = simState[key].val;
+      document.getElementById(key + 'Readout').textContent = simState[key].val.toFixed(2) + ' V';
+    }
+
+    function updateSimSlider(ch, rawVal) {
+      const key = ch === 1 ? 'ch1' : 'ch2';
+      let v = parseFloat(rawVal);
+      if (simState[key].mode === 'DO') {
+        v = v >= 11 ? 22.0 : 0.0;
+        document.getElementById(key + 'Slider').value = v;
+      }
+      simState[key].val = v;
+      document.getElementById(key + 'Readout').textContent = v.toFixed(2) + ' V';
+      const sub = document.getElementById(key + 'Sub');
+      if (simState[key].mode === 'AO') {
+        sub.textContent = 'TARGET SET: ' + v.toFixed(2) + ' V';
+      } else if (simState[key].mode === 'DO') {
+        sub.textContent = v > 0 ? 'DIGITAL HIGH (22.00 V)' : 'DIGITAL LOW (0.00 V)';
+      }
+    }
+
+    // 3. 60FPS Dual-Channel Oscilloscope Waveform Canvas
+    const canvas = document.getElementById('scopeCanvas');
+    const ctx = canvas.getContext('2d');
+    const ch1History = new Array(90).fill(24.1);
+    const ch2History = new Array(90).fill(10.0);
+    let tick = 0;
+
+    function renderScope() {
+      tick += 0.08;
+      const noise1 = Math.sin(tick * 2.1) * 0.25;
+      const noise2 = Math.cos(tick * 1.4) * 0.12;
+      ch1History.push(Math.max(0, simState.ch1.val + noise1));
+      ch1History.shift();
+      ch2History.push(Math.max(0, simState.ch2.val + noise2));
+      ch2History.shift();
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Subtle Grid
+      ctx.strokeStyle = 'rgba(148, 163, 184, 0.12)';
+      ctx.lineWidth = 1;
+      for (let y = 24; y < canvas.height; y += 24) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas.width, y);
+        ctx.stroke();
+      }
+
+      // Draw Ch1 Trace (Cyan, scaled 0-60V)
+      ctx.strokeStyle = '#00F0FF';
+      ctx.lineWidth = 2.2;
+      ctx.beginPath();
+      ch1History.forEach((v, i) => {
+        const x = (i / (ch1History.length - 1)) * canvas.width;
+        const y = canvas.height - 10 - (Math.min(v, 60) / 60) * (canvas.height - 20);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+
+      // Draw Ch2 Trace (Emerald, scaled 0-60V)
+      ctx.strokeStyle = '#00E676';
+      ctx.lineWidth = 2.2;
+      ctx.beginPath();
+      ch2History.forEach((v, i) => {
+        const x = (i / (ch2History.length - 1)) * canvas.width;
+        const y = canvas.height - 10 - (Math.min(v, 60) / 60) * (canvas.height - 20);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+
+      requestAnimationFrame(renderScope);
+    }
+    renderScope();
+
+    // 4. Live Cloud Firmware Version Check from GitHub
+    fetch('https://raw.githubusercontent.com/ShadiElshazly/INSPECTO-APP/main/version.json')
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (data && data.version_name) {
+          document.getElementById('liveFwBadge').textContent =
+            `INSPECTO HARDWARE V3.0 • LATEST MCU FW: ${data.version_name.toUpperCase()}`;
+        }
+      })
+      .catch(() => {});
+
+    // 5. Privacy Policy Modal Controls & URL Hash Trigger
+    function openPrivacyModal() {
+      document.getElementById('privacyModal').classList.add('open');
+    }
+    function closePrivacyModal() {
+      document.getElementById('privacyModal').classList.remove('open');
+      if (window.location.hash === '#privacy') {
+        history.replaceState(null, null, ' ');
+      }
+    }
+    if (window.location.hash === '#privacy') {
+      openPrivacyModal();
+    }
+  </script>
+</body>
+</html>
