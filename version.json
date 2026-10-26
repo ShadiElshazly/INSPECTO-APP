@@ -1,10 +1,10 @@
 {
-  "latest_app_code": 7,
-  "latest_app_version": "v1.6.0",
-  "app_release_notes": "Added automatic in-app self-updating and improved USB DFU reliability.",
+  "latest_app_code": 8,
+  "latest_app_version": "v1.7.0",
+  "app_release_notes": "Added turbo speed to oscilloscope feature.",
   "apk_url": "https://github.com/ShadiElshazly/INSPECTO-APP/releases/latest/download/Inspecto.apk",
-  "latest_fw": 102,
-  "version_name": "v1.0.2",
-  "release_notes": "Inspecto V3 dual-channel firmware with USB-C DFU support.",
+  "latest_fw": 103,
+  "version_name": "v1.0.3",
+  "release_notes": "Inspecto V3 data turbo speed feature.",
   "bin_url": "https://github.com/ShadiElshazly/INSPECTO-APP/raw/main/inspecto_fw.bin"
 }
