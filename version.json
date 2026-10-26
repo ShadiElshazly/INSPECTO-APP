@@ -1,6 +1,10 @@
 {
+  "latest_app_code": 3,
+  "latest_app_version": "v1.2.0",
+  "app_release_notes": "Added automatic in-app self-updating and improved USB DFU reliability.",
+  "apk_url": "https://github.com/ShadiElshazly/INSPECTO-APP/releases/latest/download/Inspecto.apk",
   "latest_fw": 102,
   "version_name": "v1.0.2",
-  "release_notes": "Added improved ADC noise filtering and faster relay settling.",
+  "release_notes": "Inspecto V3 dual-channel firmware with USB-C DFU support.",
   "bin_url": "https://github.com/ShadiElshazly/INSPECTO-APP/raw/main/inspecto_fw.bin"
 }
