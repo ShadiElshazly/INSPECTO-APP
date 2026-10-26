@@ -1,47 +1,62 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Prevents Dark Reader & theme extensions from injecting heavy live CSS/Canvas filters -->
   <meta name="darkreader-lock" />
-  <meta name="color-scheme" content="dark light" />
-  <title>INSPECTO | Pocket Dual-Channel Industrial I/O & Telemetry System</title>
-  <meta name="description" content="Inspecto by Apricity — Smartphone-powered Dual-Channel Universal Industrial I/O (170mV–60V AI, 0–22V AO, 22V DO) with 5-Stage Smartphone USB-C Isolation & Protection." />
+  <meta name="color-scheme" content="light dark" />
+  <title>Inspecto — Pocket Dual-Channel Industrial I/O & Measurement Tool</title>
+  <meta name="description" content="Inspecto (Hardware V3) by Apricity — Turn your Android phone into a 100% isolated, smartphone-safe dual-channel 60V voltmeter and 0–22V signal source." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root[data-theme="dark"] {
-      --bg-primary: #070B12;
-      --bg-secondary: #0D1322;
-      --bg-card: #121A2D;
-      --bg-header: #0B101D;
-      --text-primary: #F2F6FF;
-      --text-secondary: #94A3B8;
+    :root[data-theme="light"] {
+      --bg-page: #F8FAFC;
+      --bg-alt: #F1F5F9;
+      --bg-card: #FFFFFF;
+      --bg-subtle: #E2E8F0;
+      --bg-diagram: #F8FAFC;
+      --text-main: #0F172A;
+      --text-body: #334155;
       --text-muted: #64748B;
-      --accent-cyan: #00F0FF;
-      --accent-cyan-soft: rgba(0, 240, 255, 0.12);
-      --accent-emerald: #00E676;
-      --accent-emerald-soft: rgba(0, 230, 118, 0.12);
-      --border-subtle: #1E293B;
-      --border-highlight: #0099AD;
+      --primary: #0284C7;
+      --primary-dark: #0369A1;
+      --primary-soft: #E0F2FE;
+      --safe-green: #059669;
+      --safe-soft: #D1FAE5;
+      --safe-border: #6EE7B7;
+      --amber: #D97706;
+      --amber-soft: #FEF3C7;
+      --border: #E2E8F0;
+      --border-strong: #CBD5E1;
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
+      --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.06);
+      --header-bg: #FFFFFF;
     }
 
-    :root[data-theme="light"] {
-      --bg-primary: #F4F7FB;
-      --bg-secondary: #E9EFF8;
-      --bg-card: #FFFFFF;
-      --bg-header: #FFFFFF;
-      --text-primary: #0F172A;
-      --text-secondary: #475569;
-      --text-muted: #64748B;
-      --accent-cyan: #0077CC;
-      --accent-cyan-soft: rgba(0, 119, 204, 0.10);
-      --accent-emerald: #059669;
-      --accent-emerald-soft: rgba(5, 150, 105, 0.10);
-      --border-subtle: #CBD5E1;
-      --border-highlight: #0077CC;
+    :root[data-theme="dark"] {
+      --bg-page: #0B1120;
+      --bg-alt: #111827;
+      --bg-card: #1E293B;
+      --bg-subtle: #334155;
+      --bg-diagram: #0F172A;
+      --text-main: #F8FAFC;
+      --text-body: #CBD5E1;
+      --text-muted: #94A3B8;
+      --primary: #38BDF8;
+      --primary-dark: #0284C7;
+      --primary-soft: rgba(56, 189, 248, 0.14);
+      --safe-green: #10B981;
+      --safe-soft: rgba(16, 185, 129, 0.14);
+      --safe-border: rgba(16, 185, 129, 0.4);
+      --amber: #FBBF24;
+      --amber-soft: rgba(251, 191, 36, 0.14);
+      --border: #334155;
+      --border-strong: #475569;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+      --header-bg: #0F172A;
     }
 
     * {
@@ -51,27 +66,28 @@
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--bg-primary);
-      color: var(--text-primary);
-      line-height: 1.6;
-      overflow-x: hidden;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.65;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
     }
 
     .container {
       width: 100%;
-      max-width: 1220px;
+      max-width: 1180px;
       margin: 0 auto;
       padding: 0 24px;
     }
 
-    /* Solid Hardware-Friendly Top Navigation (Zero Repaint Cost) */
+    /* Navigation Bar */
     header {
       position: sticky;
       top: 0;
       z-index: 100;
-      background-color: var(--bg-header);
-      border-bottom: 1px solid var(--border-subtle);
+      background-color: var(--header-bg);
+      border-bottom: 1px solid var(--border);
     }
 
     .nav-bar {
@@ -79,7 +95,7 @@
       align-items: center;
       justify-content: space-between;
       height: 72px;
-      gap: 16px;
+      gap: 20px;
     }
 
     .brand {
@@ -87,623 +103,622 @@
       align-items: center;
       gap: 12px;
       text-decoration: none;
-      color: var(--text-primary);
+      color: var(--text-main);
     }
 
-    .brand-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 9px;
-      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald));
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--primary);
+      color: #FFFFFF;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #070B12;
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 900;
-      font-size: 1.05rem;
-    }
-
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .brand-title {
-      font-family: 'Orbitron', sans-serif;
       font-weight: 800;
-      font-size: 1.2rem;
-      letter-spacing: 2px;
-      line-height: 1.1;
+      font-size: 1.15rem;
+      letter-spacing: -0.5px;
     }
 
-    .brand-sub {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.67rem;
-      color: var(--accent-cyan);
-      letter-spacing: 1px;
+    .brand-name {
+      font-weight: 800;
+      font-size: 1.3rem;
+      letter-spacing: -0.3px;
+      line-height: 1.1;
+      display: block;
+    }
+
+    .brand-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      display: block;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 26px;
+      gap: 28px;
       list-style: none;
     }
 
     .nav-links a {
       text-decoration: none;
-      color: var(--text-secondary);
-      font-size: 0.92rem;
-      font-weight: 500;
+      color: var(--text-body);
+      font-size: 0.95rem;
+      font-weight: 600;
     }
 
     .nav-links a:hover {
-      color: var(--accent-cyan);
+      color: var(--primary);
     }
 
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
-    .theme-btn {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-primary);
-      width: 40px;
-      height: 40px;
-      border-radius: 9px;
+    .theme-toggle {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .theme-btn:hover {
-      border-color: var(--accent-cyan);
-    }
-
-    /* Hero Section */
-    .hero {
-      padding: 72px 0 56px;
-      background: radial-gradient(circle at 15% 20%, var(--accent-cyan-soft), transparent 55%);
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 44px;
-      align-items: center;
-    }
-
-    .status-pill {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 6px 14px;
-      border-radius: 999px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-highlight);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.76rem;
-      color: var(--accent-cyan);
-      margin-bottom: 18px;
+      gap: 6px;
     }
 
-    .pulse-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--accent-emerald);
-      display: inline-block;
+    .theme-toggle:hover {
+      border-color: var(--primary);
     }
 
-    .hero h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: clamp(2rem, 4vw, 3.35rem);
-      font-weight: 800;
-      line-height: 1.14;
-      margin-bottom: 18px;
-    }
-
-    .gradient-text {
-      color: var(--accent-cyan);
-    }
-
-    .hero-lead {
-      font-size: 1.05rem;
-      color: var(--text-secondary);
-      max-width: 600px;
-      margin-bottom: 24px;
-    }
-
-    .safety-callout {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 16px 18px;
-      border-radius: 12px;
-      background: var(--bg-card);
-      border: 1px solid var(--accent-emerald);
-      margin-bottom: 28px;
-    }
-
-    .safety-callout svg {
-      flex-shrink: 0;
-      color: var(--accent-emerald);
-      margin-top: 2px;
-    }
-
-    .safety-callout-text {
-      font-size: 0.91rem;
-      color: var(--text-primary);
-    }
-
-    .safety-callout-text strong {
-      color: var(--accent-emerald);
-    }
-
-    .cta-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-bottom: 24px;
-    }
-
+    /* Buttons */
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 12px;
-      padding: 15px 24px;
+      padding: 14px 24px;
       border-radius: 12px;
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: 1rem;
       text-decoration: none;
       cursor: pointer;
-      border: none;
+      border: 1px solid transparent;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
     }
 
     .btn-primary {
-      background: var(--accent-cyan);
-      color: #060A12;
+      background-color: var(--primary);
+      color: #FFFFFF;
     }
 
     .btn-primary:hover {
-      opacity: 0.92;
+      background-color: var(--primary-dark);
     }
 
-    .btn-secondary {
-      background: var(--bg-card);
-      color: var(--text-primary);
-      border: 1px solid var(--border-highlight);
+    .btn-outline {
+      background-color: var(--bg-card);
+      color: var(--text-main);
+      border-color: var(--border-strong);
     }
 
-    .btn-secondary:hover {
-      border-color: var(--accent-cyan);
+    .btn-outline:hover {
+      border-color: var(--primary);
+      color: var(--primary);
     }
 
-    .btn-subtext {
+    .btn-label-sub {
       display: block;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.69rem;
+      font-size: 0.76rem;
       font-weight: 500;
-      opacity: 0.85;
+      opacity: 0.9;
     }
 
-    .hero-meta {
+    /* Hero Section */
+    .hero {
+      padding: 64px 0 56px;
+      background-color: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .eyebrow-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background-color: var(--safe-soft);
+      color: var(--safe-green);
+      font-weight: 700;
+      font-size: 0.82rem;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.1rem, 3.8vw, 3.1rem);
+      font-weight: 800;
+      line-height: 1.18;
+      letter-spacing: -0.8px;
+      margin-bottom: 18px;
+      color: var(--text-main);
+    }
+
+    .hero h1 span {
+      color: var(--primary);
+    }
+
+    .hero-desc {
+      font-size: 1.12rem;
+      color: var(--text-body);
+      margin-bottom: 24px;
+      max-width: 580px;
+    }
+
+    .phone-safe-banner {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 18px;
+      border-radius: 12px;
+      background-color: var(--safe-soft);
+      border: 1px solid var(--safe-border);
+      margin-bottom: 28px;
+    }
+
+    .phone-safe-banner svg {
+      flex-shrink: 0;
+      color: var(--safe-green);
+      margin-top: 2px;
+    }
+
+    .phone-safe-banner p {
+      font-size: 0.94rem;
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    .cta-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 18px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.78rem;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .quick-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 0.88rem;
+      font-weight: 600;
       color: var(--text-muted);
     }
 
-    /* Interactive Virtual Cockpit Card */
-    .cockpit-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-highlight);
-      border-radius: 18px;
-      padding: 22px;
-    }
-
-    .cockpit-header {
-      display: flex;
+    .quick-highlights span {
+      display: inline-flex;
       align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--border-subtle);
-      padding-bottom: 12px;
-      margin-bottom: 16px;
-    }
-
-    .cockpit-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.86rem;
-      letter-spacing: 1px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .hw-badge {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      padding: 4px 8px;
-      border-radius: 6px;
-      background: var(--accent-cyan-soft);
-      color: var(--accent-cyan);
-      border: 1px solid var(--border-highlight);
-    }
-
-    .sim-channel {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 12px;
-    }
-
-    .sim-ch-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .sim-ch-name {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--accent-cyan);
-    }
-
-    .relay-badge {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.67rem;
-      padding: 3px 8px;
-      border-radius: 99px;
-      background: var(--accent-emerald-soft);
-      color: var(--accent-emerald);
-    }
-
-    .mode-tabs {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
       gap: 6px;
-      margin-bottom: 10px;
     }
 
-    .mode-tab {
-      padding: 6px;
-      border-radius: 7px;
-      border: 1px solid var(--border-subtle);
-      background: var(--bg-card);
-      color: var(--text-secondary);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.71rem;
-      font-weight: 600;
-      cursor: pointer;
-      text-align: center;
+    /* Hero Visual Diagram Card */
+    .hero-visual-card {
+      background-color: var(--bg-diagram);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: var(--shadow-md);
     }
 
-    .mode-tab.active {
-      background: var(--accent-cyan);
-      color: #070B12;
-      border-color: var(--accent-cyan);
-      font-weight: 700;
-    }
-
-    .sim-readout-row {
+    .visual-card-header {
       display: flex;
-      align-items: baseline;
       justify-content: space-between;
-      margin-bottom: 8px;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
     }
 
-    .sim-voltage {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.7rem;
+    .visual-card-title {
       font-weight: 700;
-      color: var(--text-primary);
+      font-size: 0.95rem;
+      color: var(--text-main);
     }
 
-    .sim-setpoint {
+    .mono-pill {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.74rem;
-      color: var(--text-secondary);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background-color: var(--primary-soft);
+      color: var(--primary);
     }
 
-    .sim-slider {
-      width: 100%;
-      accent-color: var(--accent-cyan);
-      cursor: pointer;
-    }
-
-    canvas#scopeCanvas {
-      width: 100%;
-      height: 112px;
-      background: #050811;
-      border-radius: 9px;
-      border: 1px solid var(--border-subtle);
-      display: block;
-    }
-
-    /* Sections */
+    /* Section Defaults */
     section {
-      padding: 68px 0;
-      border-top: 1px solid var(--border-subtle);
+      padding: 72px 0;
+      border-bottom: 1px solid var(--border);
     }
 
-    .section-header {
+    .section-alt {
+      background-color: var(--bg-alt);
+    }
+
+    .section-head {
       text-align: center;
       max-width: 740px;
-      margin: 0 auto 44px;
+      margin: 0 auto 48px;
     }
 
-    .section-eyebrow {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.77rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--accent-cyan);
-      margin-bottom: 8px;
-      display: block;
-    }
-
-    .section-header h2 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: clamp(1.6rem, 2.8vw, 2.25rem);
-      margin-bottom: 12px;
-    }
-
-    .section-header p {
-      color: var(--text-secondary);
-      font-size: 1rem;
-    }
-
-    /* Safety Grid */
-    .safety-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
-      gap: 20px;
-      margin-bottom: 32px;
-    }
-
-    .safety-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 14px;
-      padding: 24px;
-    }
-
-    .safety-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 10px;
-      background: var(--accent-emerald-soft);
-      color: var(--accent-emerald);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 14px;
-    }
-
-    .safety-card h3 {
-      font-size: 1.1rem;
-      margin-bottom: 8px;
-      font-weight: 700;
-    }
-
-    .safety-card p {
-      color: var(--text-secondary);
-      font-size: 0.91rem;
-    }
-
-    .safety-tag {
+    .section-tag {
       display: inline-block;
-      margin-top: 12px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      padding: 4px 9px;
-      border-radius: 6px;
-      background: var(--bg-secondary);
-      color: var(--accent-cyan);
-    }
-
-    .isolation-diagram {
-      background: var(--bg-card);
-      border: 1px solid var(--border-highlight);
-      border-radius: 16px;
-      padding: 24px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-      gap: 14px;
-      text-align: center;
-    }
-
-    .iso-stage {
-      padding: 14px;
-      border-radius: 10px;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-subtle);
-    }
-
-    .iso-stage-title {
-      font-family: 'Orbitron', sans-serif;
       font-size: 0.8rem;
-      color: var(--accent-cyan);
-      margin-bottom: 4px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--primary);
+      margin-bottom: 8px;
     }
 
-    .iso-stage-desc {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.74rem;
-      color: var(--text-secondary);
+    .section-head h2 {
+      font-size: clamp(1.75rem, 3vw, 2.35rem);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+      color: var(--text-main);
     }
 
-    /* Specs Grid */
-    .specs-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-      gap: 20px;
+    .section-head p {
+      font-size: 1.06rem;
+      color: var(--text-body);
     }
 
-    .spec-box {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 14px;
-      padding: 24px;
-    }
-
-    .spec-box h3 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1rem;
-      margin-bottom: 14px;
-      color: var(--accent-cyan);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .spec-list {
-      list-style: none;
-    }
-
-    .spec-list li {
-      display: flex;
-      justify-content: space-between;
-      padding: 9px 0;
-      border-bottom: 1px solid var(--border-subtle);
-      font-size: 0.89rem;
-    }
-
-    .spec-list li:last-child {
-      border-bottom: none;
-    }
-
-    .spec-key {
-      color: var(--text-secondary);
-    }
-
-    .spec-val {
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 600;
-      color: var(--text-primary);
-      text-align: right;
-    }
-
-    /* Downloads */
-    .download-hub {
+    /* Visual Safety Cards (Pictures + Short Text) */
+    .safety-visual-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 24px;
+      margin-bottom: 36px;
     }
 
-    .download-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-highlight);
+    .visual-info-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 26px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .illustration-box {
+      background-color: var(--bg-diagram);
+      border-bottom: 1px solid var(--border);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 190px;
+    }
+
+    . illustration-box svg {
+      width: 100%;
+      max-width: 340px;
+      height: auto;
+    }
+
+    .card-body {
+      padding: 24px;
+      flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 20px;
     }
 
-    .dl-top {
+    .card-body h3 {
+      font-size: 1.18rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-main);
+    }
+
+    .card-body p {
+      font-size: 0.95rem;
+      color: var(--text-body);
+      margin-bottom: 16px;
+    }
+
+    .card-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--safe-green);
+      background-color: var(--safe-soft);
+      padding: 5px 10px;
+      border-radius: 6px;
+      align-self: flex-start;
+    }
+
+    /* Full-Width Visual Safety Chain Diagram */
+    .safety-chain-box {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .safety-chain-title {
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+      color: var(--text-main);
+    }
+
+    /* Quick Start Section (Steps + Wiring Diagrams) */
+    .quickstart-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+
+    .qs-step-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .qs-step-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .qs-number {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background-color: var(--primary);
+      color: #FFFFFF;
+      font-weight: 800;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .qs-step-card h3 {
+      font-size: 1.06rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .qs-mini-diagram {
+      background-color: var(--bg-diagram);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .qs-step-card p {
+      font-size: 0.92rem;
+      color: var(--text-body);
+    }
+
+    /* 3 Wiring Diagrams Grid */
+    .wiring-subhead {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .wiring-subhead h3 {
+      font-size: 1.45rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .wiring-subhead p {
+      color: var(--text-body);
+      font-size: 0.98rem;
+    }
+
+    .wiring-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+      gap: 24px;
+    }
+
+    /* Interactive Simulator & Specs Section */
+    .sim-and-specs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .sim-box {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .sim-ch-card {
+      background-color: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .sim-ch-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .mode-btn-group {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .mode-btn {
+      padding: 8px 6px;
+      border-radius: 8px;
+      border: 1px solid var(--border-strong);
+      background-color: var(--bg-card);
+      color: var(--text-body);
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .mode-btn.active {
+      background-color: var(--primary);
+      color: #FFFFFF;
+      border-color: var(--primary);
+    }
+
+    .sim-val-display {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .spec-table-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .spec-table tr {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .spec-table tr:last-child {
+      border-bottom: none;
+    }
+
+    .spec-table td {
+      padding: 12px 4px;
+      font-size: 0.93rem;
+    }
+
+    .spec-table td:first-child {
+      color: var(--text-body);
+      font-weight: 500;
+    }
+
+    .spec-table td:last-child {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      text-align: right;
+      color: var(--text-main);
+    }
+
+    /* Download Hub */
+    .download-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 28px;
+    }
+
+    .dl-card {
+      background-color: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: 18px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 22px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .dl-card-top {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      gap: 16px;
+      gap: 18px;
     }
 
-    .dl-badge {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.69rem;
-      padding: 4px 9px;
-      border-radius: 99px;
-      background: var(--accent-cyan-soft);
-      color: var(--accent-cyan);
-      display: inline-block;
-      margin-bottom: 8px;
+    .dl-card h3 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin: 8px 0;
     }
 
-    .download-card h3 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.24rem;
-      margin-bottom: 8px;
+    .dl-card p {
+      font-size: 0.95rem;
+      color: var(--text-body);
     }
 
-    .download-card p {
-      color: var(--text-secondary);
-      font-size: 0.91rem;
-    }
-
-    .qr-frame {
+    .qr-box {
       background: #FFFFFF;
+      border: 1px solid #CBD5E1;
       padding: 8px;
-      border-radius: 10px;
-      width: 104px;
-      height: 104px;
+      border-radius: 12px;
+      width: 108px;
+      height: 108px;
       flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .qr-frame img {
-      width: 88px;
-      height: 88px;
+    .qr-box img {
+      width: 90px;
+      height: 90px;
       display: block;
-    }
-
-    /* Steps Grid */
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
-      gap: 18px;
-    }
-
-    .step-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 14px;
-      padding: 22px;
-    }
-
-    .step-num {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.3rem;
-      font-weight: 800;
-      color: var(--accent-cyan);
-      margin-bottom: 8px;
-    }
-
-    .step-card h4 {
-      font-size: 1rem;
-      margin-bottom: 6px;
-    }
-
-    .step-card p {
-      font-size: 0.88rem;
-      color: var(--text-secondary);
     }
 
     /* Footer */
     footer {
-      border-top: 1px solid var(--border-subtle);
       padding: 40px 0;
-      background: var(--bg-secondary);
-      font-size: 0.86rem;
-      color: var(--text-secondary);
+      background-color: var(--bg-card);
+      font-size: 0.9rem;
+      color: var(--text-muted);
     }
 
-    .footer-inner {
+    .footer-row {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
@@ -713,25 +728,26 @@
 
     .footer-links {
       display: flex;
-      gap: 20px;
+      gap: 22px;
       flex-wrap: wrap;
     }
 
     .footer-links a {
-      color: var(--text-secondary);
+      color: var(--text-body);
       text-decoration: none;
+      font-weight: 600;
       cursor: pointer;
     }
 
     .footer-links a:hover {
-      color: var(--accent-cyan);
+      color: var(--primary);
     }
 
-    /* Modal */
+    /* Privacy Modal */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(5, 8, 17, 0.88);
+      background: rgba(15, 23, 42, 0.75);
       display: none;
       align-items: center;
       justify-content: center;
@@ -743,37 +759,19 @@
       display: flex;
     }
 
-    .modal-content {
+    .modal-box {
       background: var(--bg-card);
-      border: 1px solid var(--border-highlight);
+      border: 1px solid var(--border);
       border-radius: 16px;
-      max-width: 650px;
+      max-width: 640px;
       width: 100%;
-      max-height: 85vh;
-      overflow-y: auto;
       padding: 28px;
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border-subtle);
-    }
-
-    .modal-close {
-      background: transparent;
-      border: 1px solid var(--border-subtle);
-      color: var(--text-primary);
-      border-radius: 8px;
-      padding: 6px 12px;
-      cursor: pointer;
+      box-shadow: var(--shadow-md);
     }
 
     @media (max-width: 920px) {
-      .hero-grid {
+      .hero-grid,
+      .sim-and-specs {
         grid-template-columns: 1fr;
       }
       .nav-links {
@@ -784,82 +782,79 @@
 </head>
 <body>
 
-  <!-- Top Navigation -->
+  <!-- Navigation -->
   <header>
     <div class="container nav-bar">
       <a href="#" class="brand">
-        <div class="brand-icon">IN</div>
-        <div class="brand-text">
-          <span class="brand-title">INSPECTO</span>
-          <span class="brand-sub">APRICITY // HARDWARE V3.0</span>
+        <div class="brand-mark">IN</div>
+        <div>
+          <span class="brand-name">Inspecto</span>
+          <span class="brand-tag">Hardware V3.0 • By Apricity</span>
         </div>
       </a>
 
       <ul class="nav-links">
-        <li><a href="#safety">Phone & Hardware Safety</a></li>
-        <li><a href="#capabilities">Capabilities</a></li>
-        <li><a href="#firmware">USB-C Firmware OTA</a></li>
-        <li><a href="#downloads">Downloads & Manual</a></li>
-        <li><a href="#quickstart">Quick Start</a></li>
+        <li><a href="#safety">Phone & Board Safety</a></li>
+        <li><a href="#quickstart">Visual Quick Start</a></li>
+        <li><a href="#wiring">Wiring Diagrams</a></li>
+        <li><a href="#specs">Specifications</a></li>
+        <li><a href="#downloads">Downloads</a></li>
       </ul>
 
       <div class="nav-actions">
-        <a href="#downloads" class="btn btn-primary" style="padding: 9px 16px; font-size: 0.84rem;">
+        <button class="theme-toggle" id="themeBtn" aria-label="Switch Theme">
+          <span id="themeLabel">🌙 Dark Mode</span>
+        </button>
+        <a href="#downloads" class="btn btn-primary" style="padding: 9px 16px; font-size: 0.88rem;">
           Download App
         </a>
-        <button class="theme-btn" id="themeToggle" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">
-          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="5"></circle>
-            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
-          </svg>
-        </button>
       </div>
     </div>
   </header>
 
   <main>
-    <!-- Hero Section -->
-    <section class="hero" style="border-top: none;">
+    <!-- HERO SECTION -->
+    <section class="hero">
       <div class="container hero-grid">
         <div>
-          <div class="status-pill">
-            <span class="pulse-dot"></span>
-            <span id="liveFwBadge">INSPECTO HARDWARE V3.0 • STM32F072 ENGINE</span>
+          <div class="eyebrow-badge">
+            ✓ 100% Optically Isolated & Smartphone-Safe Hardware
           </div>
 
           <h1>
-            Turn Your Smartphone Into a <span class="gradient-text">Precision Industrial I/O Lab.</span>
+            Precision Industrial I/O, <span>Powered by Your Phone.</span>
           </h1>
 
-          <p class="hero-lead">
-            <strong>Inspecto</strong> (Hardware Version V3) is a pocket-sized, dual-channel universal analog and digital test instrument powered directly over USB-C. Measure up to <strong>60V DC</strong>, source precision <strong>0–22V DC</strong> analog signals, and actuate <strong>22V</strong> industrial logic in real time.
+          <p class="hero-desc">
+            <strong>Inspecto</strong> (Hardware V3) connects to your Android phone over USB-C to give you two independent industrial test channels: measure up to <strong>60V DC</strong>, output calibrated <strong>0–22V DC</strong> analog signals, or switch <strong>22V</strong> digital logic.
           </p>
 
-          <div class="safety-callout">
+          <div class="phone-safe-banner">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
               <path d="M9 12l2 2 4-4"></path>
             </svg>
-            <div class="safety-callout-text">
-              <strong>100% Smartphone-Safe Isolation Architecture:</strong> Multi-stage optical solid-state relays (<code>TLP172GM</code>), self-resetting polymeric fuses (<code>PPTC</code>), and transient clamping shields ensure industrial field voltages never reach your phone's USB-C port.
-            </div>
+            <p>
+              <strong>Guaranteed Safe for Your Smartphone:</strong> Built-in optical relays (<code>TLP172GM</code>), self-resetting fuses (<code>PPTC</code>), and a <code>663 kΩ</code> input shield physically block high voltages from ever reaching your phone's USB-C port.
+            </p>
           </div>
 
-          <div class="cta-group">
+          <!-- Two Primary Download Buttons -->
+          <div class="cta-row">
             <a href="https://github.com/ShadiElshazly/INSPECTO-APP/releases/latest/download/Inspecto.apk" class="btn btn-primary" download>
-              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                 <polyline points="7 10 12 15 17 10"></polyline>
                 <line x1="12" y1="15" x2="12" y2="3"></line>
               </svg>
               <div>
                 Download Inspecto App
-                <span class="btn-subtext">Official Android APK • Auto-Update Ready</span>
+                <span class="btn-label-sub">Android APK • Direct Install</span>
               </div>
             </a>
 
-            <a href="https://github.com/ShadiElshazly/INSPECTO-APP/raw/main/inspecto_v3_user_guide.pdf" target="_blank" rel="noopener" class="btn btn-secondary">
-              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <a href="https://github.com/ShadiElshazly/INSPECTO-APP/raw/main/inspecto_v3_user_guide.pdf" target="_blank" rel="noopener" class="btn btn-outline">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                 <polyline points="14 2 14 8 20 8"></polyline>
                 <line x1="16" y1="13" x2="8" y2="13"></line>
@@ -867,275 +862,538 @@
               </svg>
               <div>
                 Download User Manual
-                <span class="btn-subtext">Illustrated PDF Guide & Wiring Diagrams</span>
+                <span class="btn-label-sub">Illustrated PDF Guide</span>
               </div>
             </a>
           </div>
 
-          <div class="hero-meta">
-            <span>✓ Dual Independent Channels</span>
-            <span>✓ Optical Relay Interlock</span>
-            <span>✓ In-App USB-C MCU Updater</span>
+          <div class="quick-highlights">
+            <span>• 0.17V–60V Analog Input</span>
+            <span>• 0–22V Analog Output</span>
+            <span>• In-App USB-C Firmware Updates</span>
           </div>
         </div>
 
-        <!-- Interactive Live Simulator -->
-        <div class="cockpit-card">
-          <div class="cockpit-header">
-            <div class="cockpit-title">
-              <span class="pulse-dot"></span>
-              INSPECTO LIVE SIMULATOR
-            </div>
-            <span class="hw-badge">HW: V3.0 | VID: 1605</span>
+        <!-- Hero Visual System Overview Diagram -->
+        <div class="hero-visual-card">
+          <div class="visual-card-header">
+            <span class="visual-card-title">Inspecto System Overview</span>
+            <span class="mono-pill" id="fwStatusBadge">HW V3.0 • STM32F072</span>
           </div>
 
-          <div class="sim-channel">
-            <div class="sim-ch-top">
-              <span class="sim-ch-name">CHANNEL 01</span>
-              <span class="relay-badge" id="ch1RelayBadge">RELAY: ISOLATED (AI)</span>
-            </div>
-            <div class="mode-tabs" id="ch1Modes">
-              <button class="mode-tab active" data-mode="AI" onclick="setSimMode(1, 'AI')">AI: 0.17–60V</button>
-              <button class="mode-tab" data-mode="AO" onclick="setSimMode(1, 'AO')">AO: 0–22V</button>
-              <button class="mode-tab" data-mode="DO" onclick="setSimMode(1, 'DO')">DO: 0V / 22V</button>
-            </div>
-            <div class="sim-readout-row">
-              <span class="sim-voltage" id="ch1Readout">24.10 V</span>
-              <span class="sim-setpoint" id="ch1Sub">EXTERNAL SENSOR INPUT</span>
-            </div>
-            <input type="range" class="sim-slider" id="ch1Slider" min="0" max="60" step="0.1" value="24.1" oninput="updateSimSlider(1, this.value)" />
-          </div>
+          <!-- Clean Illustrated SVG Overview -->
+          <svg viewBox="0 0 460 290" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+            <rect width="460" height="290" rx="12" fill="#0F172A"/>
+            <!-- Phone Box -->
+            <rect x="20" y="55" width="105" height="180" rx="14" fill="#1E293B" stroke="#38BDF8" stroke-width="2"/>
+            <rect x="30" y="75" width="85" height="135" rx="6" fill="#0F172A"/>
+            <text x="72" y="98" fill="#38BDF8" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="middle">INSPECTO</text>
+            <rect x="38" y="110" width="69" height="36" rx="4" fill="#1E293B"/>
+            <text x="72" y="125" fill="#94A3B8" font-family="monospace" font-size="8" text-anchor="middle">CH1 (AI)</text>
+            <text x="72" y="139" fill="#38BDF8" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">24.00 V</text>
+            <rect x="38" y="154" width="69" height="36" rx="4" fill="#1E293B"/>
+            <text x="72" y="169" fill="#94A3B8" font-family="monospace" font-size="8" text-anchor="middle">CH2 (AO)</text>
+            <text x="72" y="183" fill="#10B981" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">10.00 V</text>
+            <text x="72" y="255" fill="#CBD5E1" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="middle">Android Phone</text>
 
-          <div class="sim-channel">
-            <div class="sim-ch-top">
-              <span class="sim-ch-name" style="color: var(--accent-emerald);">CHANNEL 02</span>
-              <span class="relay-badge" id="ch2RelayBadge">RELAY: ENGAGED (AO)</span>
-            </div>
-            <div class="mode-tabs" id="ch2Modes">
-              <button class="mode-tab" data-mode="AI" onclick="setSimMode(2, 'AI')">AI: 0.17–60V</button>
-              <button class="mode-tab active" data-mode="AO" onclick="setSimMode(2, 'AO')">AO: 0–22V</button>
-              <button class="mode-tab" data-mode="DO" onclick="setSimMode(2, 'DO')">DO: 0V / 22V</button>
-            </div>
-            <div class="sim-readout-row">
-              <span class="sim-voltage" id="ch2Readout">10.00 V</span>
-              <span class="sim-setpoint" id="ch2Sub">TARGET SET: 10.00 V</span>
-            </div>
-            <input type="range" class="sim-slider" id="ch2Slider" min="0" max="22" step="0.1" value="10.0" oninput="updateSimSlider(2, this.value)" />
-          </div>
+            <!-- USB-C Connection Line -->
+            <line x1="125" y1="145" x2="175" y2="145" stroke="#38BDF8" stroke-width="3" stroke-dasharray="5,3"/>
+            <rect x="133" y="122" width="36" height="16" rx="4" fill="#0284C7"/>
+            <text x="151" y="133" fill="#FFFFFF" font-family="monospace" font-size="8" font-weight="bold" text-anchor="middle">USB-C</text>
 
-          <canvas id="scopeCanvas" width="440" height="112"></canvas>
-        </div>
-      </div>
-    </section>
+            <!-- Inspecto V3 Board Box -->
+            <rect x="175" y="45" width="155" height="200" rx="12" fill="#1E293B" stroke="#10B981" stroke-width="2"/>
+            <text x="252" y="70" fill="#FFFFFF" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">INSPECTO V3 PCB</text>
+            <rect x="190" y="82" width="125" height="34" rx="6" fill="#0F172A" stroke="#334155"/>
+            <text x="252" y="103" fill="#38BDF8" font-family="monospace" font-size="10" text-anchor="middle">STM32F072 MCU</text>
 
-    <!-- 5-Stage Smartphone & Hardware Safety Section -->
-    <section id="safety">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-eyebrow">Engineered for Zero-Risk Field Testing</span>
-          <h2>Uncompromising Protection for Your Smartphone & Board</h2>
-          <p>
-            Connecting industrial 24V–60V PLC lines to a smartphone requires multi-stage electrical protection. Inspecto V3 features a 5-stage hardware defense matrix that keeps your phone 100% isolated from field faults, miswiring, and short circuits.
-          </p>
-        </div>
+            <rect x="190" y="126" width="125" height="44" rx="6" fill="#064E3B" stroke="#10B981"/>
+            <text x="252" y="145" fill="#A7F3D0" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">OPTICAL ISOLATION</text>
+            <text x="252" y="160" fill="#FFFFFF" font-family="monospace" font-size="9" text-anchor="middle">TLP172GM + PPTC</text>
 
-        <div class="safety-grid">
-          <div class="safety-card">
-            <div class="safety-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="2" y="7" width="20" height="10" rx="2"></rect>
-                <line x1="12" y1="7" x2="12" y2="17"></line>
-              </svg>
-            </div>
-            <h3>Optical Solid-State Relay Isolation</h3>
-            <p>
-              High-voltage <strong>Toshiba TLP172GM</strong> photorelays physically and optically disconnect the output amplifier whenever a channel is in Analog Input mode, using an infrared LED-to-MOSFET light barrier so external 60V signals can never back-drive the board.
-            </p>
-            <span class="safety-tag">TLP172GM • 350V Breakdown Rating</span>
-          </div>
+            <rect x="190" y="180" width="125" height="48" rx="6" fill="#0F172A" stroke="#334155"/>
+            <text x="252" y="199" fill="#FBBF24" font-family="sans-serif" font-size="9" font-weight="bold" text-anchor="middle">DUAL I/O STAGE</text>
+            <text x="252" y="215" fill="#CBD5E1" font-family="monospace" font-size="9" text-anchor="middle">60V AI | 0-22V AO</text>
 
-          <div class="safety-card">
-            <div class="safety-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-              </svg>
-            </div>
-            <h3>663 kΩ High-Impedance Input Shield</h3>
-            <p>
-              Each Analog Input channel passes through a precision <strong>630 kΩ + 33 kΩ</strong> attenuation network and a <strong>22 kΩ</strong> current-limiting buffer. Even at 60V DC, input current is restricted to microamps—completely impossible to surge into your phone's USB-C port.
-            </p>
-            <span class="safety-tag">&lt; 90 µA Max Input Current @ 60V</span>
-          </div>
+            <!-- Output Terminals -->
+            <line x1="330" y1="100" x2="365" y2="100" stroke="#38BDF8" stroke-width="3"/>
+            <circle cx="373" cy="100" r="8" fill="#38BDF8"/>
+            <text x="390" y="104" fill="#F8FAFC" font-family="monospace" font-size="11" font-weight="bold">CH 1</text>
 
-          <div class="safety-card">
-            <div class="safety-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-              </svg>
-            </div>
-            <h3>Self-Resetting PPTC Fuses & Zener Clamps</h3>
-            <p>
-              If a technician accidentally shorts <strong>+24V</strong> or reverse-wired <strong>-24V</strong> directly into an active output terminal, the onboard <strong>PPTC polymeric fuse</strong> trips to high impedance within milliseconds while Zener clamping safely absorbs the transient. Once unplugged, it heals itself automatically.
-            </p>
-            <span class="safety-tag">Auto-Healing Overcurrent Defense</span>
-          </div>
+            <line x1="330" y1="150" x2="365" y2="150" stroke="#10B981" stroke-width="3"/>
+            <circle cx="373" cy="150" r="8" fill="#10B981"/>
+            <text x="390" y="154" fill="#F8FAFC" font-family="monospace" font-size="11" font-weight="bold">CH 2</text>
 
-          <div class="safety-card">
-            <div class="safety-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-                <line x1="12" y1="18" x2="12.01" y2="18"></line>
-              </svg>
-            </div>
-            <h3>Indefinite Short-Circuit & USB Power Guard</h3>
-            <p>
-              Dual-loop op-amp feedback with a <strong>47 Ω isolation resistor</strong> caps continuous short-circuit current at a gentle <strong>~30 mA</strong>. Your smartphone battery stays cool, USB-C current limits are never exceeded, and both relays automatically open on boot, reset, or firmware update.
-            </p>
-            <span class="safety-tag">Safe for All Android Phones & Foldables</span>
-          </div>
-        </div>
-
-        <div class="isolation-diagram">
-          <div class="iso-stage">
-            <div class="iso-stage-title">1. FIELD TERMINAL</div>
-            <div class="iso-stage-desc">Up to 60V DC Input / 0–22V Output</div>
-          </div>
-          <div class="iso-stage">
-            <div class="iso-stage-title">2. PPTC + ZENER CLAMP</div>
-            <div class="iso-stage-desc">Blocks ±24V Miswiring & Shorts</div>
-          </div>
-          <div class="iso-stage">
-            <div class="iso-stage-title">3. TLP172GM PHOTORELAY</div>
-            <div class="iso-stage-desc">Optical Light-Barrier Isolation</div>
-          </div>
-          <div class="iso-stage">
-            <div class="iso-stage-title">4. STM32F072 MCU</div>
-            <div class="iso-stage-desc">Hardware Interlock State Machine</div>
-          </div>
-          <div class="iso-stage" style="border-color: var(--accent-emerald);">
-            <div class="iso-stage-title" style="color: var(--accent-emerald);">5. YOUR SMARTPHONE</div>
-            <div class="iso-stage-desc">100% Protected 5V USB-C Link</div>
-          </div>
+            <line x1="330" y1="200" x2="365" y2="200" stroke="#94A3B8" stroke-width="3"/>
+            <circle cx="373" cy="200" r="8" fill="#64748B"/>
+            <text x="390" y="204" fill="#94A3B8" font-family="monospace" font-size="11" font-weight="bold">GND</text>
+          </svg>
         </div>
       </div>
     </section>
 
-    <!-- Hardware V3 Technical Specifications -->
-    <section id="capabilities">
+    <!-- SECTION 1: VISUAL PHONE & HARDWARE SAFETY -->
+    <section id="safety" class="section-alt">
       <div class="container">
-        <div class="section-header">
-          <span class="section-eyebrow">Inspecto Hardware V3 Architecture</span>
-          <h2>Dual-Channel Universal I/O Specifications</h2>
+        <div class="section-head">
+          <span class="section-tag">Visual Safety Architecture</span>
+          <h2>Why Inspecto is 100% Safe for Your Smartphone</h2>
           <p>
-            Both channels operate simultaneously and independently in any combination—with hardware-enforced mutual exclusion per channel so input and output stages never conflict.
+            You don't need to read complex schematics to know your phone is safe. Inspecto V3 uses three physical hardware shields between the industrial test probes and your phone's USB-C port.
           </p>
         </div>
 
-        <div class="specs-grid">
-          <div class="spec-box">
-            <h3>
-              <span>ANALOG INPUT (AI MODE)</span>
-              <span class="hw-badge">MODE 0</span>
-            </h3>
-            <ul class="spec-list">
-              <li><span class="spec-key">Measurement Range</span><span class="spec-val">170 mV – 60.00 V DC</span></li>
-              <li><span class="spec-key">ADC Resolution</span><span class="spec-val">12-Bit Hardware Calibrated</span></li>
-              <li><span class="spec-key">Input Impedance</span><span class="spec-val">663 kΩ (630k + 33k Divider)</span></li>
-              <li><span class="spec-key">Photorelay State</span><span class="spec-val" style="color: var(--accent-emerald);">OPEN (Physically Isolated)</span></li>
-              <li><span class="spec-key">Noise Floor Deadband</span><span class="spec-val">&lt; 100 mV Auto-Zero</span></li>
-            </ul>
-          </div>
+        <div class="safety-visual-grid">
+          <!-- Visual Card 1: Optical Light Barrier -->
+          <div class="visual-info-card">
+            <div class="illustration-box">
+              <svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg">
+                <rect width="320" height="160" rx="10" fill="#0F172A"/>
+                <!-- Left: Phone/MCU Side -->
+                <rect x="16" y="35" width="90" height="90" rx="8" fill="#1E293B" stroke="#38BDF8" stroke-width="1.5"/>
+                <text x="61" y="72" fill="#38BDF8" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="middle">PHONE &amp; MCU</text>
+                <text x="61" y="90" fill="#94A3B8" font-family="monospace" font-size="10" text-anchor="middle">Safe 3.3V / 5V</text>
 
-          <div class="spec-box">
-            <h3>
-              <span>ANALOG OUTPUT (AO MODE)</span>
-              <span class="hw-badge">MODE 1</span>
-            </h3>
-            <ul class="spec-list">
-              <li><span class="spec-key">Output Voltage Range</span><span class="spec-val">0.00 V – 22.00 V DC</span></li>
-              <li><span class="spec-key">DAC Resolution</span><span class="spec-val">12-Bit (4096 Steps)</span></li>
-              <li><span class="spec-key">Amplifier Stage</span><span class="spec-val">8.5× Gain w/ Post-PPTC Feedback</span></li>
-              <li><span class="spec-key">Closed-Loop Readback</span><span class="spec-val">Real-Time Terminal ADC Sense</span></li>
-              <li><span class="spec-key">Short-Circuit Limit</span><span class="spec-val">~30 mA Continuous Safe</span></li>
-            </ul>
-          </div>
+                <!-- Center: TLP172GM Optical Gap -->
+                <rect x="118" y="25" width="84" height="110" rx="8" fill="#064E3B" stroke="#10B981" stroke-width="2"/>
+                <text x="160" y="45" fill="#A7F3D0" font-family="monospace" font-size="9" font-weight="bold" text-anchor="middle">TLP172GM</text>
+                <line x1="160" y1="55" x2="160" y2="115" stroke="#10B981" stroke-width="1.5" stroke-dasharray="4,3"/>
+                <text x="160" y="85" fill="#FFFFFF" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">LIGHT GAP</text>
+                <text x="160" y="128" fill="#6EE7B7" font-family="monospace" font-size="8" text-anchor="middle">350V Isolation</text>
 
-          <div class="spec-box">
-            <h3>
-              <span>DIGITAL OUTPUT & SYSTEM</span>
-              <span class="hw-badge">MODE 2 + MCU</span>
-            </h3>
-            <ul class="spec-list">
-              <li><span class="spec-key">Digital Logic Levels</span><span class="spec-val">LOW: 0.0V | HIGH: 22.0V</span></li>
-              <li><span class="spec-key">Microcontroller</span><span class="spec-val">STM32F072 (ARM Cortex-M0 + FreeRTOS)</span></li>
-              <li><span class="spec-key">USB Interface</span><span class="spec-val">USB-C Full-Speed CDC + ROM DFU</span></li>
-              <li><span class="spec-key">Unique Board Identity</span><span class="spec-val">Non-Volatile Option Bytes (PID)</span></li>
-              <li><span class="spec-key">Firmware Updates</span><span class="spec-val">Direct In-App USB-C Programming</span></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- In-App USB-C Firmware Update Feature Section -->
-    <section id="firmware">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-eyebrow">Zero-Programmer Field Upgradability</span>
-          <h2>Direct Smartphone-to-MCU Firmware Updates Over USB-C</h2>
-          <p>
-            No ST-Link or PC required. When you plug your Inspecto board into your phone, the app checks the board's live firmware version and updates the STM32 microcontroller directly over your USB-C cable.
-          </p>
-        </div>
-
-        <div class="steps-grid">
-          <div class="step-card">
-            <div class="step-num">01 // VERIFY</div>
-            <h4>Board-First Version Check</h4>
-            <p>The app reads your connected board's live firmware version and unique Option-Byte hardware ID before checking the cloud for newer releases.</p>
-          </div>
-          <div class="step-card">
-            <div class="step-num">02 // ISOLATE</div>
-            <h4>Safe Software DFU Jump</h4>
-            <p>Upon confirmation, Inspecto opens both solid-state relays, zeroes its DACs, and jumps cleanly into the unbrickable STM32 System ROM USB DFU Bootloader.</p>
-          </div>
-          <div class="step-card">
-            <div class="step-num">03 // FLASH</div>
-            <h4>Verified 2KB Block Programming</h4>
-            <p>The app validates the ARM Cortex-M0 vector table, flashes the binary with live 0–100% progress, performs read-back verification, and preserves your board's unique USB ID.</p>
-          </div>
-          <div class="step-card">
-            <div class="step-num">04 // REBOOT</div>
-            <h4>Instant Auto-Reconnect</h4>
-            <p>In seconds, the MCU reboots into the new firmware and reconnects to your live telemetry dashboard automatically.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Downloads & QR Code Section -->
-    <section id="downloads">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-eyebrow">Official Release Portal</span>
-          <h2>Download Inspecto App & User Manual</h2>
-          <p>
-            Click the buttons below on your phone, or scan the permanent QR codes directly with your smartphone camera.
-          </p>
-        </div>
-
-        <div class="download-hub">
-          <div class="download-card">
-            <div class="dl-top">
+                <!-- Right: High Voltage Terminal -->
+                <rect x="214" y="35" width="90" height="90" rx="8" fill="#1E293B" stroke="#FBBF24" stroke-width="1.5"/>
+                <text x="259" y="72" fill="#FBBF24" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="middle">FIELD PROBE</text>
+                <text x="259" y="90" fill="#CBD5E1" font-family="monospace" font-size="10" text-anchor="middle">Up to 60V DC</text>
+              </svg>
+            </div>
+            <div class="card-body">
               <div>
-                <span class="dl-badge">ANDROID 7.0+ (API 24–37) • FOLDABLE READY</span>
-                <h3>Inspecto Android App</h3>
+                <h3>1. Optical Light-Barrier Relay</h3>
                 <p>
-                  Full dual-channel cockpit with live oscilloscope waveforms, AI/AO/DO mode switching, dark/light themes, and automatic USB-C MCU firmware updates.
+                  Instead of metal switches, Inspecto uses <strong>Toshiba TLP172GM</strong> optical photorelays. Signals cross an internal infrared light gap rated to <strong>350V</strong>, physically disconnecting the output stage whenever you measure external voltages.
                 </p>
               </div>
-              <div class="qr-frame" title="Scan to download Inspecto.apk">
-                <img loading="lazy" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Fgithub.com%2FShadiElshazly%2FINSPECTO-APP%2Freleases%2Flatest%2Fdownload%2FInspecto.apk" alt="Inspecto APK QR Code" />
+              <span class="card-badge">✓ Zero Direct Wire Path in AI Mode</span>
+            </div>
+          </div>
+
+          <!-- Visual Card 2: Self-Healing Fuse & Reverse Polarity Shield -->
+          <div class="visual-info-card">
+            <div class="illustration-box">
+              <svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg">
+                <rect width="320" height="160" rx="10" fill="#0F172A"/>
+                <!-- Surge Arrow -->
+                <rect x="16" y="52" width="78" height="56" rx="8" fill="#7F1D1D" stroke="#EF4444" stroke-width="1.5"/>
+                <text x="55" y="77" fill="#FCA5A5" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">MISWIRING</text>
+                <text x="55" y="93" fill="#FFFFFF" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">+24V / -24V</text>
+
+                <line x1="94" y1="80" x2="122" y2="80" stroke="#EF4444" stroke-width="3"/>
+
+                <!-- PPTC Block -->
+                <rect x="122" y="38" width="88" height="84" rx="8" fill="#1E293B" stroke="#FBBF24" stroke-width="2"/>
+                <text x="166" y="64" fill="#FBBF24" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="middle">PPTC FUSE</text>
+                <text x="166" y="82" fill="#CBD5E1" font-family="monospace" font-size="9" text-anchor="middle">+ Zener Clamp</text>
+                <text x="166" y="104" fill="#10B981" font-family="sans-serif" font-size="9" font-weight="bold" text-anchor="middle">Trips &amp; Auto-Heals</text>
+
+                <line x1="210" y1="80" x2="236" y2="80" stroke="#10B981" stroke-width="3"/>
+
+                <!-- Safe Phone -->
+                <rect x="236" y="52" width="68" height="56" rx="8" fill="#064E3B" stroke="#10B981" stroke-width="1.5"/>
+                <text x="270" y="78" fill="#A7F3D0" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">PHONE</text>
+                <text x="270" y="93" fill="#FFFFFF" font-family="monospace" font-size="9" text-anchor="middle">100% SAFE</text>
+              </svg>
+            </div>
+            <div class="card-body">
+              <div>
+                <h3>2. Auto-Healing Fuse &amp; Clamping</h3>
+                <p>
+                  If you accidentally touch <strong>+24V</strong>, <strong>-24V reverse polarity</strong>, or a dead short to an active output terminal, the onboard <strong>PPTC resettable fuse</strong> and Zener diodes absorb the fault in milliseconds and reset automatically once unplugged.
+                </p>
+              </div>
+              <span class="card-badge">✓ No Blown Fuses to Replace</span>
+            </div>
+          </div>
+
+          <!-- Visual Card 3: Microamp Input Shield -->
+          <div class="visual-info-card">
+            <div class="illustration-box">
+              <svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg">
+                <rect width="320" height="160" rx="10" fill="#0F172A"/>
+                <text x="160" y="34" fill="#94A3B8" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">663 kΩ HIGH-IMPEDANCE SHIELD</text>
+                <!-- Resistor boxes -->
+                <rect x="28" y="58" width="72" height="36" rx="6" fill="#1E293B" stroke="#38BDF8" stroke-width="1.5"/>
+                <text x="64" y="80" fill="#38BDF8" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">330 kΩ</text>
+                <line x1="100" y1="76" x2="124" y2="76" stroke="#38BDF8" stroke-width="2"/>
+                <rect x="124" y="58" width="72" height="36" rx="6" fill="#1E293B" stroke="#38BDF8" stroke-width="1.5"/>
+                <text x="160" y="80" fill="#38BDF8" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">300 kΩ</text>
+                <line x1="196" y1="76" x2="220" y2="76" stroke="#10B981" stroke-width="2"/>
+                <rect x="220" y="58" width="72" height="36" rx="6" fill="#064E3B" stroke="#10B981" stroke-width="1.5"/>
+                <text x="256" y="80" fill="#A7F3D0" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">&lt; 90 µA</text>
+                <text x="160" y="128" fill="#CBD5E1" font-family="sans-serif" font-size="11" text-anchor="middle">60V DC is reduced to a harmless &lt; 3.0V signal</text>
+              </svg>
+            </div>
+            <div class="card-body">
+              <div>
+                <h3>3. Microamp Current Limiting</h3>
+                <p>
+                  Even when measuring a full <strong>60V DC</strong> industrial power rail, Inspecto's <strong>663 kΩ</strong> dual-resistor shield restricts incoming current to less than <strong>90 microamps</strong>—over 5,000× smaller than a standard phone charger.
+                </p>
+              </div>
+              <span class="card-badge">✓ Zero Phone Battery Drain or Heat</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: VISUAL QUICK START & WIRING DIAGRAMS (RIGHT AFTER SAFETY) -->
+    <section id="quickstart">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Visual Quick-Start Guide</span>
+          <h2>Up and Running in 4 Simple Steps</h2>
+          <p>
+            No drivers, no PC setup, and no external power supply needed. Follow the visual steps below to start measuring or generating signals right from your phone.
+          </p>
+        </div>
+
+        <!-- 4 Illustrated Steps -->
+        <div class="quickstart-steps">
+          <!-- Step 1 -->
+          <div class="qs-step-card">
+            <div class="qs-step-header">
+              <div class="qs-number">1</div>
+              <h3>Install the App</h3>
+            </div>
+            <div class="qs-mini-diagram">
+              <svg viewBox="0 0 200 90" width="100%" height="80">
+                <rect x="65" y="8" width="70" height="74" rx="8" fill="#0F172A" stroke="#0284C7" stroke-width="2"/>
+                <path d="M100 28 v22 M90 42 l10 10 l10 -10" stroke="#38BDF8" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <rect x="84" y="60" width="32" height="6" rx="3" fill="#10B981"/>
+              </svg>
+            </div>
+            <p>
+              Download and install <strong>Inspecto.apk</strong> on your Android phone. Open the app once to grant notification permissions upfront.
+            </p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="qs-step-card">
+            <div class="qs-step-header">
+              <div class="qs-number">2</div>
+              <h3>Plug into USB-C</h3>
+            </div>
+            <div class="qs-mini-diagram">
+              <svg viewBox="0 0 200 90" width="100%" height="80">
+                <rect x="18" y="22" width="60" height="46" rx="6" fill="#0F172A" stroke="#38BDF8" stroke-width="2"/>
+                <text x="48" y="49" fill="#38BDF8" font-family="sans-serif" font-size="9" font-weight="bold" text-anchor="middle">PHONE</text>
+                <line x1="78" y1="45" x2="118" y2="45" stroke="#10B981" stroke-width="3"/>
+                <rect x="118" y="22" width="64" height="46" rx="6" fill="#0F172A" stroke="#10B981" stroke-width="2"/>
+                <circle cx="168" cy="34" r="4" fill="#10B981"/>
+                <text x="146" y="52" fill="#FFFFFF" font-family="sans-serif" font-size="8" font-weight="bold" text-anchor="middle">INSPECTO</text>
+              </svg>
+            </div>
+            <p>
+              Connect Inspecto to your phone's USB-C port. The onboard green LED will <strong>blink slowly</strong> (confirming both channels are in safe Input mode).
+            </p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="qs-step-card">
+            <div class="qs-step-header">
+              <div class="qs-number">3</div>
+              <h3>Approve USB Prompt</h3>
+            </div>
+            <div class="qs-mini-diagram">
+              <svg viewBox="0 0 200 90" width="100%" height="80">
+                <rect x="30" y="14" width="140" height="62" rx="8" fill="#0F172A" stroke="#38BDF8" stroke-width="1.5"/>
+                <text x="100" y="34" fill="#F8FAFC" font-family="sans-serif" font-size="9" font-weight="bold" text-anchor="middle">Allow Inspecto USB?</text>
+                <rect x="46" y="44" width="10" height="10" rx="2" fill="#10B981"/>
+                <text x="62" y="53" fill="#94A3B8" font-family="sans-serif" font-size="8">Always open</text>
+                <rect x="122" y="42" width="34" height="18" rx="4" fill="#0284C7"/>
+                <text x="139" y="54" fill="#FFFFFF" font-family="sans-serif" font-size="9" font-weight="bold" text-anchor="middle">OK</text>
+              </svg>
+            </div>
+            <p>
+              Check <strong>"Always open"</strong> and tap <strong>OK</strong> on the Android popup. The app automatically locks onto your board's unique ID.
+            </p>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="qs-step-card">
+            <div class="qs-step-header">
+              <div class="qs-number">4</div>
+              <h3>Select Mode &amp; Test</h3>
+            </div>
+            <div class="qs-mini-diagram">
+              <svg viewBox="0 0 200 90" width="100%" height="80">
+                <rect x="18" y="26" width="50" height="38" rx="6" fill="#0284C7"/>
+                <text x="43" y="49" fill="#FFFFFF" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">AI</text>
+                <rect x="75" y="26" width="50" height="38" rx="6" fill="#1E293B" stroke="#475569"/>
+                <text x="100" y="49" fill="#CBD5E1" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">AO</text>
+                <rect x="132" y="26" width="50" height="38" rx="6" fill="#1E293B" stroke="#475569"/>
+                <text x="157" y="49" fill="#CBD5E1" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">DO</text>
+              </svg>
+            </div>
+            <p>
+              Choose <strong>AI</strong> (measure up to 60V), <strong>AO</strong> (source 0–22V), or <strong>DO</strong> (0V/22V switch) independently on Channel 1 or Channel 2.
+            </p>
+          </div>
+        </div>
+
+        <!-- 3 VISUAL WIRING DIAGRAMS -->
+        <div id="wiring" class="wiring-subhead">
+          <h3>Visual Wiring &amp; Connection Diagrams</h3>
+          <p>Always connect the black <strong>GND</strong> reference lead first, then connect Channel 1 or Channel 2.</p>
+        </div>
+
+        <div class="wiring-grid">
+          <!-- Wiring Diagram 1: Measuring Voltage (AI Mode) -->
+          <div class="visual-info-card">
+            <div class="illustration-box">
+              <svg viewBox="0 0 340 175" xmlns="http://www.w3.org/2000/svg">
+                <rect width="340" height="175" rx="10" fill="#0F172A"/>
+                <text x="170" y="24" fill="#38BDF8" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="middle">DIAGRAM A: MEASURING VOLTAGE (AI MODE)</text>
+
+                <!-- Inspecto Box -->
+                <rect x="20" y="42" width="115" height="112" rx="8" fill="#1E293B" stroke="#38BDF8" stroke-width="1.5"/>
+                <text x="77" y="65" fill="#FFFFFF" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">INSPECTO V3</text>
+                <text x="77" y="82" fill="#10B981" font-family="monospace" font-size="9" text-anchor="middle">Relay: OPEN</text>
+                <circle cx="122" cy="105" r="5" fill="#38BDF8"/>
+                <text x="95" y="109" fill="#38BDF8" font-family="monospace" font-size="10" font-weight="bold">CH1</text>
+                <circle cx="122" cy="135" r="5" fill="#94A3B8"/>
+                <text x="95" y="139" fill="#94A3B8" font-family="monospace" font-size="10" font-weight="bold">GND</text>
+
+                <!-- Wires -->
+                <line x1="127" y1="105" x2="215" y2="105" stroke="#38BDF8" stroke-width="2.5"/>
+                <line x1="127" y1="135" x2="215" y2="135" stroke="#94A3B8" stroke-width="2.5"/>
+
+                <!-- External Sensor / PLC Supply -->
+                <rect x="215" y="42" width="105" height="112" rx="8" fill="#1E293B" stroke="#FBBF24" stroke-width="1.5"/>
+                <text x="267" y="65" fill="#FBBF24" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">SENSOR / PLC</text>
+                <text x="267" y="82" fill="#CBD5E1" font-family="monospace" font-size="9" text-anchor="middle">0.17V – 60V DC</text>
+                <text x="242" y="109" fill="#FBBF24" font-family="monospace" font-size="10" font-weight="bold">+V OUT</text>
+                <text x="242" y="139" fill="#94A3B8" font-family="monospace" font-size="10" font-weight="bold">COM / 0V</text>
+              </svg>
+            </div>
+            <div class="card-body">
+              <div>
+                <h3>Measuring 0.17V – 60V DC (AI)</h3>
+                <p>
+                  Select <strong>AI Mode</strong> in the app. Connect <strong>GND</strong> to your cabinet's 0V common, and touch <strong>CH1</strong> or <strong>CH2</strong> to any sensor, 24V PLC rail, or battery up to 60V DC.
+                </p>
+              </div>
+              <span class="card-badge">LED Blinks Slowly (500ms)</span>
+            </div>
+          </div>
+
+          <!-- Wiring Diagram 2: Driving a Load (AO / DO Mode) -->
+          <div class="visual-info-card">
+            <div class="illustration-box">
+              <svg viewBox="0 0 340 175" xmlns="http://www.w3.org/2000/svg">
+                <rect width="340" height="175" rx="10" fill="#0F172A"/>
+                <text x="170" y="24" fill="#10B981" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="middle">DIAGRAM B: SOURCING 0–22V (AO / DO MODE)</text>
+
+                <!-- Inspecto Box -->
+                <rect x="20" y="42" width="115" height="112" rx="8" fill="#1E293B" stroke="#10B981" stroke-width="1.5"/>
+                <text x="77" y="65" fill="#FFFFFF" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">INSPECTO V3</text>
+                <text x="77" y="82" fill="#FBBF24" font-family="monospace" font-size="9" text-anchor="middle">Relay: CLOSED</text>
+                <circle cx="122" cy="105" r="5" fill="#10B981"/>
+                <text x="95" y="109" fill="#10B981" font-family="monospace" font-size="10" font-weight="bold">CH2</text>
+                <circle cx="122" cy="135" r="5" fill="#94A3B8"/>
+                <text x="95" y="139" fill="#94A3B8" font-family="monospace" font-size="10" font-weight="bold">GND</text>
+
+                <!-- Wires -->
+                <line x1="127" y1="105" x2="215" y2="105" stroke="#10B981" stroke-width="2.5"/>
+                <line x1="127" y1="135" x2="215" y2="135" stroke="#94A3B8" stroke-width="2.5"/>
+
+                <!-- VFD / Valve / PLC Input -->
+                <rect x="215" y="42" width="105" height="112" rx="8" fill="#1E293B" stroke="#38BDF8" stroke-width="1.5"/>
+                <text x="267" y="65" fill="#38BDF8" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">PLC / ACTUATOR</text>
+                <text x="267" y="82" fill="#CBD5E1" font-family="monospace" font-size="9" text-anchor="middle">0–10V or 24V DI</text>
+                <text x="242" y="109" fill="#10B981" font-family="monospace" font-size="10" font-weight="bold">SIGNAL IN</text>
+                <text x="242" y="139" fill="#94A3B8" font-family="monospace" font-size="10" font-weight="bold">COM / 0V</text>
+              </svg>
+            </div>
+            <div class="card-body">
+              <div>
+                <h3>Driving 0–22V Signals (AO / DO)</h3>
+                <p>
+                  Select <strong>AO Mode</strong> to send a precision 0–22V analog reference (e.g., 0–10V VFD speed control) or <strong>DO Mode</strong> to send a 22V digital HIGH signal into a PLC input.
+                </p>
+              </div>
+              <span class="card-badge">LED Blinks Fast (150ms Active Output)</span>
+            </div>
+          </div>
+
+          <!-- Wiring Diagram 3: Loopback Self-Test -->
+          <div class="visual-info-card">
+            <div class="illustration-box">
+              <svg viewBox="0 0 340 175" xmlns="http://www.w3.org/2000/svg">
+                <rect width="340" height="175" rx="10" fill="#0F172A"/>
+                <text x="170" y="24" fill="#FBBF24" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="middle">DIAGRAM C: 10-SECOND SELF-TEST (LOOPBACK)</text>
+
+                <rect x="35" y="42" width="180" height="112" rx="8" fill="#1E293B" stroke="#38BDF8" stroke-width="1.5"/>
+                <text x="125" y="64" fill="#FFFFFF" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">INSPECTO V3 TERMINALS</text>
+
+                <text x="65" y="96" fill="#10B981" font-family="monospace" font-size="10" font-weight="bold">CH1 (AO: 10.0V)</text>
+                <circle cx="195" cy="92" r="5" fill="#10B981"/>
+
+                <text x="65" y="132" fill="#38BDF8" font-family="monospace" font-size="10" font-weight="bold">CH2 (AI: Reads 10V)</text>
+                <circle cx="195" cy="128" r="5" fill="#38BDF8"/>
+
+                <!-- Jumper Loop -->
+                <path d="M 200 92 C 285 92, 285 128, 200 128" stroke="#FBBF24" stroke-width="3.5" fill="none"/>
+                <text x="282" y="114" fill="#FBBF24" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">1 Wire</text>
+              </svg>
+            </div>
+            <div class="card-body">
+              <div>
+                <h3>CH1-to-CH2 Self-Test</h3>
+                <p>
+                  Want to verify your board with zero external equipment? Connect a jumper wire between <strong>CH1</strong> and <strong>CH2</strong>. Set CH1 to <strong>AO (10.0V)</strong> and watch CH2 read <strong>10.0V</strong> in <strong>AI Mode</strong>!
+                </p>
+              </div>
+              <span class="card-badge">✓ Instant Hardware Verification</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: HARDWARE V3 SPECIFICATIONS & INTERACTIVE CHANNEL EXPLORER -->
+    <section id="specs" class="section-alt">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Technical Reference</span>
+          <h2>Inspecto Hardware V3 Specifications</h2>
+          <p>
+            Engineered around the 32-bit ARM Cortex-M0 <strong>STM32F072</strong> microcontroller running FreeRTOS, with independent hardware-interlocked channels.
+          </p>
+        </div>
+
+        <div class="sim-and-specs">
+          <!-- Left: Specification Table -->
+          <div class="spec-table-card">
+            <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 14px;">Hardware V3.0 Parameters</h3>
+            <table class="spec-table">
+              <tbody>
+                <tr>
+                  <td>Analog Input Range (AI)</td>
+                  <td>0.17 V – 60.00 V DC</td>
+                </tr>
+                <tr>
+                  <td>Analog Input Impedance</td>
+                  <td>663 kΩ (630k + 33k)</td>
+                </tr>
+                <tr>
+                  <td>Analog Output Range (AO)</td>
+                  <td>0.00 V – 22.00 V DC</td>
+                </tr>
+                <tr>
+                  <td>Digital Output Logic (DO)</td>
+                  <td>LOW: 0.0V | HIGH: 22.0V</td>
+                </tr>
+                <tr>
+                  <td>ADC / DAC Resolution</td>
+                  <td>12-Bit Calibrated (4096 steps)</td>
+                </tr>
+                <tr>
+                  <td>Channel Isolation Switch</td>
+                  <td>Toshiba TLP172GM (350V Optical)</td>
+                </tr>
+                <tr>
+                  <td>Overcurrent &amp; Fault Defense</td>
+                  <td>Auto-Resetting PPTC + 27V Zener</td>
+                </tr>
+                <tr>
+                  <td>Continuous Short-Circuit Limit</td>
+                  <td>~30 mA (47 Ω Loop Isolation)</td>
+                </tr>
+                <tr>
+                  <td>MCU &amp; Real-Time OS</td>
+                  <td>STM32F072 + FreeRTOS</td>
+                </tr>
+                <tr>
+                  <td>In-App Firmware Updates</td>
+                  <td>USB-C ROM DFU (Option-Byte ID)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Right: Zero-Lag Interactive Channel Simulator (Updates Only on User Click/Drag) -->
+          <div class="sim-box">
+            <div class="visual-card-header">
+              <span class="visual-card-title">Interactive Channel Mode Explorer</span>
+              <span class="mono-pill">Click to Test Modes</span>
+            </div>
+
+            <!-- Channel 1 Interactive -->
+            <div class="sim-ch-card">
+              <div class="sim-ch-row">
+                <strong style="font-size: 0.95rem;">Channel 1</strong>
+                <span class="mono-pill" id="simCh1Relay">Relay: OPEN (Isolated)</span>
+              </div>
+              <div class="mode-btn-group" id="simCh1Btns">
+                <button class="mode-btn active" onclick="updateChannelSim(1, 'AI')">AI (0.17–60V)</button>
+                <button class="mode-btn" onclick="updateChannelSim(1, 'AO')">AO (0–22V)</button>
+                <button class="mode-btn" onclick="updateChannelSim(1, 'DO')">DO (0V / 22V)</button>
+              </div>
+              <div class="sim-ch-row">
+                <span class="sim-val-display" id="simCh1Val">24.00 V</span>
+                <span style="font-size: 0.82rem; color: var(--text-muted);" id="simCh1Desc">Measuring external input</span>
+              </div>
+              <input type="range" id="simCh1Slider" min="0" max="60" step="0.5" value="24" style="width: 100%; accent-color: var(--primary);" oninput="slideChannelSim(1, this.value)" />
+            </div>
+
+            <!-- Channel 2 Interactive -->
+            <div class="sim-ch-card" style="margin-bottom: 0;">
+              <div class="sim-ch-row">
+                <strong style="font-size: 0.95rem;">Channel 2</strong>
+                <span class="mono-pill" id="simCh2Relay">Relay: CLOSED (Active)</span>
+              </div>
+              <div class="mode-btn-group" id="simCh2Btns">
+                <button class="mode-btn" onclick="updateChannelSim(2, 'AI')">AI (0.17–60V)</button>
+                <button class="mode-btn active" onclick="updateChannelSim(2, 'AO')">AO (0–22V)</button>
+                <button class="mode-btn" onclick="updateChannelSim(2, 'DO')">DO (0V / 22V)</button>
+              </div>
+              <div class="sim-ch-row">
+                <span class="sim-val-display" id="simCh2Val">10.00 V</span>
+                <span style="font-size: 0.82rem; color: var(--text-muted);" id="simCh2Desc">Sourcing 10.00 V output</span>
+              </div>
+              <input type="range" id="simCh2Slider" min="0" max="22" step="0.5" value="10" style="width: 100%; accent-color: var(--primary);" oninput="slideChannelSim(2, this.value)" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: DOWNLOADS & QR CODES -->
+    <section id="downloads">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Official Downloads</span>
+          <h2>Get the Inspecto App &amp; Illustrated Manual</h2>
+          <p>
+            Tap either button below on your smartphone, or scan the QR code with your phone camera for an instant direct download.
+          </p>
+        </div>
+
+        <div class="download-grid">
+          <!-- APK Card -->
+          <div class="dl-card">
+            <div class="dl-card-top">
+              <div>
+                <span class="mono-pill">ANDROID 7.0+ • FOLDABLE &amp; PHONE READY</span>
+                <h3>Inspecto Android Application</h3>
+                <p>
+                  Includes real-time dual-channel voltage gauges, waveform graphing, AI/AO/DO mode controls, and automatic over-the-air USB-C board firmware updates.
+                </p>
+              </div>
+              <div class="qr-box" title="Scan to download Inspecto.apk">
+                <img loading="lazy" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Fgithub.com%2FShadiElshazly%2FINSPECTO-APP%2Freleases%2Flatest%2Fdownload%2FInspecto.apk" alt="Inspecto App QR Code" />
               </div>
             </div>
             <a href="https://github.com/ShadiElshazly/INSPECTO-APP/releases/latest/download/Inspecto.apk" class="btn btn-primary" style="width: 100%;" download>
@@ -1143,55 +1401,23 @@
             </a>
           </div>
 
-          <div class="download-card">
-            <div class="dl-top">
+          <!-- PDF Manual Card -->
+          <div class="dl-card">
+            <div class="dl-card-top">
               <div>
-                <span class="dl-badge" style="color: var(--accent-emerald); background: var(--accent-emerald-soft);">OFFICIAL DOCUMENTATION • PDF</span>
+                <span class="mono-pill">PDF USER GUIDE • WIRING &amp; SAFETY</span>
                 <h3>Inspecto V3 User Manual</h3>
                 <p>
-                  Complete illustrated quick-start guide featuring terminal pinouts, 0.17V–60V measurement wiring, 0–22V load driving diagrams, LED blink codes, and safety specs.
+                  Complete illustrated reference manual covering pinouts, 60V measurement wiring, 0–22V output driving, LED blink codes, and serial test commands.
                 </p>
               </div>
-              <div class="qr-frame" title="Scan to download User Manual PDF">
-                <img loading="lazy" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Fgithub.com%2FShadiElshazly%2FINSPECTO-APP%2Fraw%2Fmain%2Finspecto_v3_user_guide.pdf" alt="Inspecto Manual QR Code" />
+              <div class="qr-box" title="Scan to download User Manual PDF">
+                <img loading="lazy" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Fgithub.com%2FShadiElshazly%2FINSPECTO-APP%2Fraw%2Fmain%2Finspecto_v3_user_guide.pdf" alt="Inspecto User Manual QR Code" />
               </div>
             </div>
-            <a href="https://github.com/ShadiElshazly/INSPECTO-APP/raw/main/inspecto_v3_user_guide.pdf" target="_blank" rel="noopener" class="btn btn-secondary" style="width: 100%;">
+            <a href="https://github.com/ShadiElshazly/INSPECTO-APP/raw/main/inspecto_v3_user_guide.pdf" target="_blank" rel="noopener" class="btn btn-outline" style="width: 100%;">
               Download User Manual (.PDF)
             </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 4-Step Quick Start -->
-    <section id="quickstart">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-eyebrow">Ready in 60 Seconds</span>
-          <h2>How to Get Started with Inspecto</h2>
-        </div>
-
-        <div class="steps-grid">
-          <div class="step-card">
-            <div class="step-num">STEP 1</div>
-            <h4>Install the App</h4>
-            <p>Download and open <strong>Inspecto.apk</strong> on your Android phone, tablet, or foldable device and accept the initial permissions prompt.</p>
-          </div>
-          <div class="step-card">
-            <div class="step-num">STEP 2</div>
-            <h4>Plug into USB-C</h4>
-            <p>Connect your Inspecto V3 board to your phone using any data-capable USB-C cable. The onboard LED will blink slowly (safe Analog Input mode).</p>
-          </div>
-          <div class="step-card">
-            <div class="step-num">STEP 3</div>
-            <h4>Auto-Connect</h4>
-            <p>Tap "OK" on the Android USB permission prompt. The app immediately locks onto your board's unique ID and streams live voltage telemetry.</p>
-          </div>
-          <div class="step-card">
-            <div class="step-num">STEP 4</div>
-            <h4>Measure or Drive</h4>
-            <p>Select <strong>AI (0.17–60V)</strong>, <strong>AO (0–22V)</strong>, or <strong>DO (0V/22V)</strong> independently on Channel 1 and Channel 2.</p>
           </div>
         </div>
       </div>
@@ -1200,206 +1426,126 @@
 
   <!-- Footer -->
   <footer>
-    <div class="container footer-inner">
+    <div class="container footer-row">
       <div>
-        <strong>INSPECTO</strong> by Apricity • Hardware Version V3.0 • Web Build v2.2 (Zero-Lag Engine)
+        <strong>Inspecto</strong> by Apricity • Hardware Version V3.0 • Clean Web Edition v3.0
       </div>
       <div class="footer-links">
         <a href="https://github.com/ShadiElshazly/INSPECTO-APP" target="_blank" rel="noopener">GitHub Repository</a>
-        <a href="#downloads">Download APK</a>
-        <a href="#downloads">User Manual (PDF)</a>
-        <a onclick="openPrivacyModal()">Privacy Policy</a>
+        <a href="#safety">Safety Architecture</a>
+        <a href="#quickstart">Quick Start</a>
+        <a onclick="openPrivacy()">Privacy Policy</a>
       </div>
     </div>
   </footer>
 
-  <!-- Play Store Compliant Privacy Policy Modal -->
+  <!-- Privacy Policy Modal -->
   <div class="modal-backdrop" id="privacyModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 style="font-family: 'Orbitron', sans-serif;">Inspecto Privacy Policy</h3>
-        <button class="modal-close" onclick="closePrivacyModal()">Close ✕</button>
+    <div class="modal-box">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border);">
+        <h3 style="font-size: 1.2rem; font-weight: 800;">Inspecto Privacy Policy</h3>
+        <button class="theme-toggle" onclick="closePrivacy()">Close ✕</button>
       </div>
-      <p style="margin-bottom: 12px; color: var(--text-secondary);">
-        <strong>Effective Date:</strong> October 2026 | <strong>Package:</strong> <code>com.apricity.inspecto</code>
+      <p style="margin-bottom: 10px; font-size: 0.92rem; color: var(--text-body);">
+        <strong>1. Zero Personal Data Collection:</strong> The Inspecto Android application (<code>com.apricity.inspecto</code>) operates strictly as a local hardware controller for the Inspecto USB-C device. It does not collect, store, or share any personal user information, analytics, or location data.
       </p>
-      <p style="margin-bottom: 12px;">
-        <strong>1. Zero Personal Data Collection:</strong> The Inspecto Android application operates strictly as a local hardware controller and telemetry dashboard for the Inspecto USB-C hardware board. We do not collect, store, transmit, or sell any personal user data, location data, contacts, or analytics.
+      <p style="margin-bottom: 10px; font-size: 0.92rem; color: var(--text-body);">
+        <strong>2. USB Hardware Access:</strong> USB Host permissions are used solely to communicate with connected Inspecto hardware (<code>VID: 1605</code>) and the STM32 ROM DFU Bootloader (<code>VID: 1155</code>, <code>PID: 57105</code>) during user-initiated firmware updates.
       </p>
-      <p style="margin-bottom: 12px;">
-        <strong>2. USB Hardware Access:</strong> The app uses the Android USB Host API (<code>android.hardware.usb.host</code>) exclusively to communicate with connected Inspecto hardware (`VID: 1605`) and the STM32 ROM DFU Bootloader (`VID: 1155`, `PID: 57105`) for user-approved firmware updates.
-      </p>
-      <p style="margin-bottom: 12px;">
-        <strong>3. Internet Access:</strong> Network access is used solely to check the official GitHub repository (`github.com/ShadiElshazly/INSPECTO-APP`) for new STM32 microcontroller firmware releases when an Inspecto board is connected.
-      </p>
-      <p style="color: var(--text-secondary); font-size: 0.88rem;">
-        For questions or technical support, visit our official repository at <code>https://github.com/ShadiElshazly/INSPECTO-APP</code>.
+      <p style="font-size: 0.92rem; color: var(--text-body);">
+        <strong>3. Internet Access:</strong> Network access is used exclusively to check the official GitHub repository (<code>github.com/ShadiElshazly/INSPECTO-APP</code>) for new STM32 firmware releases when an Inspecto board is connected.
       </p>
     </div>
   </div>
 
   <script>
-    // 1. Persistent Dark/Light Theme Toggle
-    const htmlEl = document.documentElement;
-    const savedTheme = localStorage.getItem('inspecto_web_theme') || 'dark';
-    htmlEl.setAttribute('data-theme', savedTheme);
+    // 1. Clean Light/Dark Mode Toggle (Defaults to crisp, easy-to-read Light Mode)
+    const htmlRoot = document.documentElement;
+    const themeBtn = document.getElementById('themeBtn');
+    const themeLabel = document.getElementById('themeLabel');
 
-    document.getElementById('themeToggle').addEventListener('click', () => {
-      const next = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      htmlEl.setAttribute('data-theme', next);
-      localStorage.setItem('inspecto_web_theme', next);
+    function applyTheme(theme) {
+      htmlRoot.setAttribute('data-theme', theme);
+      themeLabel.textContent = theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode';
+      localStorage.setItem('inspecto_clean_theme', theme);
+    }
+
+    const saved = localStorage.getItem('inspecto_clean_theme') || 'light';
+    applyTheme(saved);
+
+    themeBtn.addEventListener('click', () => {
+      const next = htmlRoot.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      applyTheme(next);
     });
 
-    // 2. Interactive Cockpit Simulator State
-    const simState = {
-      ch1: { mode: 'AI', val: 24.1 },
-      ch2: { mode: 'AO', val: 10.0 }
-    };
+    // 2. Zero-CPU On-Demand Channel Explorer (Only runs when user clicks or drags)
+    const chModes = { 1: 'AI', 2: 'AO' };
 
-    function setSimMode(ch, mode) {
-      const key = ch === 1 ? 'ch1' : 'ch2';
-      simState[key].mode = mode;
+    function updateChannelSim(ch, mode) {
+      chModes[ch] = mode;
+      const btnGroup = document.getElementById('simCh' + ch + 'Btns').children;
+      const modes = ['AI', 'AO', 'DO'];
+      for (let i = 0; i < btnGroup.length; i++) {
+        btnGroup[i].classList.toggle('active', modes[i] === mode);
+      }
 
-      const container = document.getElementById(key + 'Modes');
-      container.querySelectorAll('.mode-tab').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.mode === mode);
-      });
-
-      const slider = document.getElementById(key + 'Slider');
-      const badge = document.getElementById(key + 'RelayBadge');
-      const sub = document.getElementById(key + 'Sub');
+      const slider = document.getElementById('simCh' + ch + 'Slider');
+      const relay = document.getElementById('simCh' + ch + 'Relay');
+      const desc = document.getElementById('simCh' + ch + 'Desc');
+      const valEl = document.getElementById('simCh' + ch + 'Val');
 
       if (mode === 'AI') {
         slider.max = 60;
-        if (simState[key].val > 60) simState[key].val = 24.1;
-        badge.textContent = 'RELAY: ISOLATED (AI)';
-        sub.textContent = 'EXTERNAL SENSOR INPUT';
+        slider.step = 0.5;
+        slider.value = 24;
+        relay.textContent = 'Relay: OPEN (Isolated)';
+        desc.textContent = 'Measuring external input';
+        valEl.textContent = '24.00 V';
       } else if (mode === 'AO') {
         slider.max = 22;
-        if (simState[key].val > 22) simState[key].val = 12.0;
-        badge.textContent = 'RELAY: ENGAGED (AO)';
-        sub.textContent = 'TARGET SET: ' + simState[key].val.toFixed(2) + ' V';
-      } else if (mode === 'DO') {
-        simState[key].val = simState[key].val >= 11 ? 0.0 : 22.0;
+        slider.step = 0.5;
+        slider.value = 10;
+        relay.textContent = 'Relay: CLOSED (Active)';
+        desc.textContent = 'Sourcing 10.00 V output';
+        valEl.textContent = '10.00 V';
+      } else {
         slider.max = 22;
-        badge.textContent = 'RELAY: ENGAGED (DO)';
-        sub.textContent = simState[key].val > 0 ? 'DIGITAL HIGH (22.00 V)' : 'DIGITAL LOW (0.00 V)';
-      }
-      slider.value = simState[key].val;
-      document.getElementById(key + 'Readout').textContent = simState[key].val.toFixed(2) + ' V';
-      drawScopeFrame();
-    }
-
-    function updateSimSlider(ch, rawVal) {
-      const key = ch === 1 ? 'ch1' : 'ch2';
-      let v = parseFloat(rawVal);
-      if (simState[key].mode === 'DO') {
-        v = v >= 11 ? 22.0 : 0.0;
-        document.getElementById(key + 'Slider').value = v;
-      }
-      simState[key].val = v;
-      document.getElementById(key + 'Readout').textContent = v.toFixed(2) + ' V';
-      const sub = document.getElementById(key + 'Sub');
-      if (simState[key].mode === 'AO') {
-        sub.textContent = 'TARGET SET: ' + v.toFixed(2) + ' V';
-      } else if (simState[key].mode === 'DO') {
-        sub.textContent = v > 0 ? 'DIGITAL HIGH (22.00 V)' : 'DIGITAL LOW (0.00 V)';
+        slider.step = 22;
+        slider.value = 22;
+        relay.textContent = 'Relay: CLOSED (Active)';
+        desc.textContent = 'Digital HIGH (22.00 V)';
+        valEl.textContent = '22.00 V';
       }
     }
 
-    // 3. Scroll-Aware, 25-FPS Throttled Oscilloscope Engine (Zero Scroll Contention)
-    const canvas = document.getElementById('scopeCanvas');
-    const ctx = canvas.getContext('2d', { alpha: false });
-    const ch1History = new Array(75).fill(24.1);
-    const ch2History = new Array(75).fill(10.0);
-    let tick = 0;
-    let isScrolling = false;
-    let scrollTimer = null;
+    function slideChannelSim(ch, val) {
+      const mode = chModes[ch];
+      const num = parseFloat(val);
+      const valEl = document.getElementById('simCh' + ch + 'Val');
+      const desc = document.getElementById('simCh' + ch + 'Desc');
+      valEl.textContent = num.toFixed(2) + ' V';
 
-    // Pause canvas drawing while user is actively scrolling so 100% of CPU/GPU goes to smooth scrolling
-    window.addEventListener('scroll', () => {
-      isScrolling = true;
-      clearTimeout(scrollTimer);
-      scrollTimer = setTimeout(() => {
-        isScrolling = false;
-      }, 120);
-    }, { passive: true });
-
-    function drawScopeFrame() {
-      tick += 0.12;
-      ch1History.push(Math.max(0, simState.ch1.val + Math.sin(tick * 2.0) * 0.2));
-      ch1History.shift();
-      ch2History.push(Math.max(0, simState.ch2.val + Math.cos(tick * 1.3) * 0.12));
-      ch2History.shift();
-
-      ctx.fillStyle = '#050811';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.strokeStyle = '#162038';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      for (let y = 28; y < canvas.height; y += 28) {
-        ctx.moveTo(0, y);
-        ctx.lineTo(canvas.width, y);
+      if (mode === 'AI') {
+        desc.textContent = 'Measuring external input';
+      } else if (mode === 'AO') {
+        desc.textContent = 'Sourcing ' + num.toFixed(2) + ' V output';
+      } else {
+        desc.textContent = num > 11 ? 'Digital HIGH (22.00 V)' : 'Digital LOW (0.00 V)';
       }
-      ctx.stroke();
-
-      const scaleX = canvas.width / (ch1History.length - 1);
-      const usableH = canvas.height - 20;
-
-      ctx.strokeStyle = '#00F0FF';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      for (let i = 0; i < ch1History.length; i++) {
-        const x = i * scaleX;
-        const y = canvas.height - 10 - (Math.min(ch1History[i], 60) / 60) * usableH;
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.stroke();
-
-      ctx.strokeStyle = '#00E676';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      for (let i = 0; i < ch2History.length; i++) {
-        const x = i * scaleX;
-        const y = canvas.height - 10 - (Math.min(ch2History[i], 60) / 60) * usableH;
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.stroke();
     }
 
-    drawScopeFrame();
-    setInterval(() => {
-      if (!isScrolling && !document.hidden) {
-        drawScopeFrame();
-      }
-    }, 45);
-
-    // 4. Live Cloud Firmware Version Badge
-    fetch('https://raw.githubusercontent.com/ShadiElshazly/INSPECTO-APP/main/version.json')
-      .then(r => r.ok ? r.json() : null)
-      .then(data => {
-        if (data && data.version_name) {
-          document.getElementById('liveFwBadge').textContent =
-            'INSPECTO HARDWARE V3.0 • LATEST MCU FW: ' + data.version_name.toUpperCase();
-        }
-      })
-      .catch(() => {});
-
-    // 5. Privacy Policy Modal Controls
-    function openPrivacyModal() {
+    // 3. Privacy Modal
+    function openPrivacy() {
       document.getElementById('privacyModal').classList.add('open');
     }
-    function closePrivacyModal() {
+    function closePrivacy() {
       document.getElementById('privacyModal').classList.remove('open');
       if (window.location.hash === '#privacy') {
         history.replaceState(null, null, ' ');
       }
     }
     if (window.location.hash === '#privacy') {
-      openPrivacyModal();
+      openPrivacy();
     }
   </script>
 </body>
