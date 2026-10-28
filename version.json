@@ -3,8 +3,8 @@
   "latest_app_version": "v1.9.0",
   "app_release_notes": "Added function generator feature support.",
   "apk_url": "https://github.com/ShadiElshazly/INSPECTO-APP/releases/latest/download/Inspecto.apk",
-  "latest_fw": 104,
-  "version_name": "v1.0.4",
+  "latest_fw": 105,
+  "version_name": "v1.0.5",
   "release_notes": "Added function generator feature.",
   "bin_url": "https://github.com/ShadiElshazly/INSPECTO-APP/raw/main/inspecto_fw.bin"
 }
