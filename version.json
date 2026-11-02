@@ -4,7 +4,7 @@
   "app_release_notes": "Added Modbus-RS485 support.",
   "apk_url": "https://github.com/ShadiElshazly/INSPECTO-APP/releases/latest/download/Inspecto.apk",
   "latest_fw": 209,
-  "version_name": "v2.0.9",
+  "version_name": "v2.1.0",
   "release_notes": "Added Modbus-RS485 support.",
   "bin_url": "https://github.com/ShadiElshazly/INSPECTO-APP/raw/main/inspecto_fw.bin"
 }
